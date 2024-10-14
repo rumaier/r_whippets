@@ -1,0 +1,28 @@
+-- r_whippets
+	['solargas_grape'] = {
+		label = 'Solar Gas Grape',
+		weight = 1100,
+		stack = false,
+		close = true,
+	},
+
+	['solargas_strawb'] = {
+		label = 'Solar Gas Strawberry',
+		weight = 1100,
+		stack = false,
+		close = true,
+	},
+
+	['solargas_grape_box'] = {
+		label = 'Solar Gas Grape Box',
+		weight = 1150,
+		stack = true,
+		close = true,
+	},
+
+	['solargas_strawb_box'] = {
+		label = 'Solar Gas Strawberry Box',
+		weight = 1150,
+		stack = true,
+		close = true,
+	},

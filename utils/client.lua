@@ -2,7 +2,9 @@ Core = exports['r_bridge']:returnCoreObject()
 
 local onPlayerLoaded = Core.Info.Framework == 'ESX' and 'esx:playerLoaded' or 'QBCore:Client:OnPlayerLoaded'
 RegisterNetEvent(onPlayerLoaded, function()
-    -- do things when players load
+    if Cfg.Options.WhippetShop.Enabled then
+        SetupWhippetShop()
+    end
 end)
 
 function debug(...)

@@ -35,18 +35,9 @@ function SendWebhook(src, event, ...)
     }), { ['Content-Type'] = 'application/json' })
 end
 
-local function buildDatabase()
-    local builtTables = MySQL.query.await('SHOW TABLES LIKE "r_storageunits"')
-    if #builtTables == 0 then
-        local built = MySQL.query.await('CREATE TABLE `r_storageunits` ( `unit` tinyint(4) NOT NULL, `owner` varchar(50) DEFAULT NULL, `contents` longtext DEFAULT NULL, `weight` int(11) DEFAULT NULL, `daysleft` tinyint(4) DEFAULT NULL, `overdue` tinyint(4) DEFAULT NULL, PRIMARY KEY (`unit`) )')
-        if not built then return print('[^8ERROR^0] Failed to create database table r_storageunits') end
-        print('[^2SUCCESS^0] Created database table r_storageunits, this only happens once.')
-    end
-end
-
 local function checkVersion()
     if not Cfg.Server.VersionCheck then return end
-    local url = 'https://api.github.com/repos/rumaier/r_communityservice/releases/latest'
+    local url = 'https://api.github.com/repos/rumaier/r_whippets/releases/latest'
     local current = GetResourceMetadata(GetCurrentResourceName(), 'version', 0)
     PerformHttpRequest(url, function(err, text, headers)
         if err == 200 then
@@ -54,7 +45,7 @@ local function checkVersion()
             local latest = data.tag_name
             if latest ~= current then
                 print('[^3WARNING^0] '.. _L('update', GetCurrentResourceName()))
-                print('[^3WARNING^0] https://keymaster.fivem.net/ ^0')
+                print('[^3WARNING^0] https://github.com/rumaier/r_whippets/releases/latest ^0')
             end
         end
     end, 'GET', '', { ['Content-Type'] = 'application/json' })
@@ -78,6 +69,5 @@ AddEventHandler('onResourceStart', function(resourceName)
         end
         print('------------------------------')
         checkVersion()
-        buildDatabase()
     end
 end)
