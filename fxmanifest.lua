@@ -26,7 +26,7 @@ client_scripts {
     'src/client/*.lua',
 }
 
-data_file 'DLC_ITYP_REQUEST' 'stream/vello_mods_gas.ytyp'
+data_file 'DLC_ITYP_REQUEST' 'stream/vello_solargas.ytyp'
 
 dependencies {
     'ox_lib',

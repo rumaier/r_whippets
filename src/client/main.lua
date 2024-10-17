@@ -3,7 +3,28 @@ local shopBlip = nil
 local inhaleOffset = { -0.0078, 0.0487, -0.0217, 0, 0, 0 }
 local carryOffset = { 0.0351, 0.0639, -0.0516, -58.9171, 46.0860, 6.9456 }
 
-local function buyGalaxyGas(flavor)
+lib.callback.register('r_whippets:openGasBox', function(boxProp, bottleProp, contents)
+    if lib.progressCircle({
+        duration = 5000,
+        position = 'bottom',
+        useWhileDead = false,
+        canCancel = true,
+        disable = {
+            car = true, 
+            combat = true,
+        },
+        anim = {
+            -- TODO: Find an animation that looks like I am opening a box
+        },
+        prop = {
+            -- TODO: get prop offset for opening animation
+        },
+        }) then
+        StartUsingGas(bottleProp, contents)
+    end
+end)
+
+local function buyGas(flavor)
     local alert = lib.alertDialog({ header = _L('buy_gas'), content = _L('buy_gas_confirm', flavor, Cfg.Options.WhippetShop.Price), centered = true, cancel = true })
     if alert == 'cancel' then return end
     local purchased = lib.callback.await('r_whippets:purchaseGas', false, flavor)
@@ -13,15 +34,15 @@ end
 
 local function openWhippetShop()
     local options = {}
-    for flavor, item in pairs(Flavors) do
-        local itemInfo = Core.Inventory.GetItemInfo(item)
-        if not itemInfo then debug('[ERROR] - Item info not found', item) return end
+    for flavor, data in pairs(Flavors) do
+        local itemInfo = Core.Inventory.GetItemInfo(data.bottleItem)
+        if not itemInfo then debug('[ERROR] - Item info not found', data.bottleItem) return end
         table.insert(options, {
             title = _L('shop_item', itemInfo.label, Cfg.Options.WhippetShop.Price),
-            icon = Cfg.Server.InventoryImagePath and string.format('%s/%s.png', Cfg.Server.InventoryImagePath, item) or 'rocket',
-            image = Cfg.Server.InventoryImagePath and string.gsub(string.format('%s/%s.png', Cfg.Server.InventoryImagePath, item), '_box', '') or 'rocket',
+            icon = Cfg.Server.InventoryImagePath and string.format('%s/%s.png', Cfg.Server.InventoryImagePath, data.boxItem) or 'rocket',
+            image = Cfg.Server.InventoryImagePath and string.format('%s/%s.png', Cfg.Server.InventoryImagePath, data.bottleItem) or 'rocket',
             onSelect = function()
-                buyGalaxyGas(flavor)
+                buyGas(flavor)
             end
         })
     end
@@ -36,7 +57,7 @@ end
 
 function SetupWhippetShop()
     local shop = Cfg.Options.WhippetShop
-    local shopBlip = Core.Natives.CreateBlip(shop.Coords.xyz, 368, 7, 1.2, _L('whippet_shop'), true)
+    shopBlip = Core.Natives.CreateBlip(shop.Coords.xyz, 368, 7, 1.2, _L('whippet_shop'), true)
     lib.points.new({ coords = shop.Coords.xyz, distance = 150,
         onEnter = function()
             if entities.shop then return end

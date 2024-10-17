@@ -28,7 +28,7 @@ Cfg = {
             Enabled = true,                                  -- Enable whippet shop (true: enabled, false: disabled)
             Coords = vec4(-1171.52, -1572.57, 3.66, 115.16), -- Whippet shop coordinates (vector4)
             PedModel = 'u_m_y_dancerave_01',                 -- Whippet shop ped model (ped model)
-            Price = 100,                                     -- Whippet price (number)
+            Price = 40,                                      -- Whippet price (number)
         },
     },
     --      _      _
