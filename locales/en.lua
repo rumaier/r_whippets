@@ -8,6 +8,7 @@ Language['en'] = { -- English
     purchased_gas = 'You purchased %s for $%s.',
 
     -- Progress Bars
+    opening_box = 'Opening Gas Box...',
 
     -- Menu Titles
     buy_gas = 'Buy Solar Gas',
@@ -20,7 +21,7 @@ Language['en'] = { -- English
 
     -- UI Elements
     text_ui = 'Use Gas (%sg)',
-    help_text = 'Press ESC to store gas',
+    help_text = 'Press X to store gas',
 
     -- Discord Webhook
     player_id = 'Player ID',

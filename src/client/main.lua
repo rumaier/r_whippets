@@ -4,6 +4,7 @@ local shopBlip = nil
 lib.callback.register('r_whippets:openGasBox', function(flavorData)
     if lib.progressCircle({
             duration = 5000,
+            label = _L('opening_box'),
             position = 'bottom',
             useWhileDead = false,
             canCancel = true,
@@ -18,8 +19,8 @@ lib.callback.register('r_whippets:openGasBox', function(flavorData)
             prop = {
                 model = flavorData.boxProp,
                 bone = 60309,
-                pos = vec3(-0.0089, -0.0009, -0.0678),
-                rot = vec3(-4.1979, 10.7573, -13.8231)
+                pos = vec3(-0.0973, -0.0161, -0.0709),
+                rot = vec3(15.4404, -5.0550, 17.0007)
             },
         }) then
         return true

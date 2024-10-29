@@ -8,10 +8,21 @@ lib.callback.register('r_whippets:purchaseGas', function(src, flavor)
     return true
 end)
 
+lib.callback.register('r_whippets:storeGas', function(src, flavor, contents, bottleEntity)
+    local player = GetPlayerPed(src)
+    bottleEntity = NetworkGetEntityFromNetworkId(bottleEntity)
+    local distance = #(GetEntityCoords(player) - GetEntityCoords(bottleEntity))
+    if distance > 3 then print(distance) end
+    print(src, flavor, contents)
+    local added = Core.Inventory.AddItem(src, Flavors[flavor].bottleItem, 1, { contents = contents })
+    if not added then return false end
+    return true
+end)
+
 local function openGasBox(src, flavor)
     local flavorData = Flavors[flavor]
     Core.Inventory.RemoveItem(src, flavorData.boxItem, 1)
-    local opened = lib.callback.await('r_whippets:openGasBox', false, flavorData)
+    local opened = lib.callback.await('r_whippets:openGasBox', src, flavorData)
     if opened then
         Core.Inventory.AddItem(src, flavorData.bottleItem, 1, { contents = 800 })
     else
@@ -28,6 +39,7 @@ local function registerUsableItems()
             if not itemData then itemData = item end
             if itemData.info then itemData.metadata = itemData.info end
             if not itemData.metadata or not itemData.metadata.contents then debug('[DEBUG] - no metadata found') return end
+            Core.Inventory.RemoveItem(src, Flavors[flavor].bottleItem, 1, itemData.metadata)
             TriggerClientEvent('r_whippets:useGas', src, flavor, itemData.metadata.contents)
         end)
     end

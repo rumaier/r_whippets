@@ -1,7 +1,7 @@
 --                _     _                  _
 --  _ ____      _| |__ (_)_ __  _ __   ___| |_ ___
 -- | '__\ \ /\ / / '_ \| | '_ \| '_ \ / _ \ __/ __|
--- | |   \ V  V /| | | | | |_) | |_) |  __/ |_\__ \
+-- | |   \ V  V /| | | | | |_) | |_) |  __/ |_\__ \ -- DO NOT DO WHIPPETS KIDS!! THEY MAKE YOUR BRAIN GO BAD!!
 -- |_|____\_/\_/ |_| |_|_| .__/| .__/ \___|\__|___/
 --  |_____|              |_|   |_|
 --
@@ -30,6 +30,7 @@ Cfg = {
             PedModel = 'u_m_y_dancerave_01',                 -- Whippet shop ped model (ped model)
             Price = 40,                                      -- Whippet price (number)
         },
+        PassoutTime = 10,                                    -- Passout time (seconds)
     },
     --      _      _
     --   __| | ___| |__  _   _  __ _
