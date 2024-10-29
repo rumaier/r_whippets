@@ -39,8 +39,8 @@ local function openWhippetShop()
         if not itemInfo then debug('[ERROR] - Item info not found', data.bottleItem) return end
         table.insert(options, {
             title = _L('shop_item', itemInfo.label, Cfg.Options.WhippetShop.Price),
-            icon = Cfg.Server.InventoryImagePath and string.format('%s/%s.png', Cfg.Server.InventoryImagePath, data.boxItem) or 'rocket',
-            image = Cfg.Server.InventoryImagePath and string.format('%s/%s.png', Cfg.Server.InventoryImagePath, data.bottleItem) or 'rocket',
+            icon = Cfg.Server.InventoryImagePath and string.format('%s/%s.png', Cfg.Server.InventoryImagePath, data.bottleItem) or 'rocket',
+            image = Cfg.Server.InventoryImagePath and string.format('%s/%s.png', Cfg.Server.InventoryImagePath, data.boxItem) or 'rocket',
             onSelect = function()
                 buyGas(flavor)
             end
