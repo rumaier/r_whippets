@@ -1,26 +1,30 @@
 local entities = {}
 local shopBlip = nil
-local inhaleOffset = { -0.0078, 0.0487, -0.0217, 0, 0, 0 }
-local carryOffset = { 0.0351, 0.0639, -0.0516, -58.9171, 46.0860, 6.9456 }
 
-lib.callback.register('r_whippets:openGasBox', function(boxProp, bottleProp, contents)
+lib.callback.register('r_whippets:openGasBox', function(flavorData)
     if lib.progressCircle({
-        duration = 5000,
-        position = 'bottom',
-        useWhileDead = false,
-        canCancel = true,
-        disable = {
-            car = true, 
-            combat = true,
-        },
-        anim = {
-            -- TODO: Find an animation that looks like I am opening a box
-        },
-        prop = {
-            -- TODO: get prop offset for opening animation
-        },
+            duration = 5000,
+            position = 'bottom',
+            useWhileDead = false,
+            canCancel = true,
+            disable = {
+                car = true,
+                combat = true,
+            },
+            anim = {
+                dict = 'missheistdockssetup1clipboard@idle_a',
+                clip = 'idle_a',
+            },
+            prop = {
+                model = flavorData.boxProp,
+                bone = 60309,
+                pos = vec3(-0.0089, -0.0009, -0.0678),
+                rot = vec3(-4.1979, 10.7573, -13.8231)
+            },
         }) then
-        StartUsingGas(bottleProp, contents)
+        return true
+    else
+        return false
     end
 end)
 

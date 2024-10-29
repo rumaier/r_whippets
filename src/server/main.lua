@@ -8,25 +8,27 @@ lib.callback.register('r_whippets:purchaseGas', function(src, flavor)
     return true
 end)
 
-local function openGasBox()
-    -- TODO: Open gas box
+local function openGasBox(src, flavor)
+    local flavorData = Flavors[flavor]
+    Core.Inventory.RemoveItem(src, flavorData.boxItem, 1)
+    local opened = lib.callback.await('r_whippets:openGasBox', false, flavorData)
+    if opened then
+        Core.Inventory.AddItem(src, flavorData.bottleItem, 1, { contents = 800 })
+    else
+        Core.Inventory.AddItem(src, flavorData.boxItem, 1)
+    end
 end
 
 local function registerUsableItems()
     for flavor, data in pairs(Flavors) do
         Core.Framework.RegisterUsableItem(data.boxItem, function(src, item, itemData)
-            if not itemData then itemData = item end
-            if itemData.info then itemData.metadata = itemData.info end
-            if not itemData.metadata then itemData.metadata = { contents = 800 } end
-            local opened = lib.callback.await('r_whippets:openGasBox', data.boxProp, data.bottleProp, itemData.metadata.contents)
-            if not opened then return end
-            Core.Inventory.RemoveItem(src, data.boxItem, 1)
+            openGasBox(src, flavor)
         end)
         Core.Framework.RegisterUsableItem(data.bottleItem, function(src, item, itemData)
             if not itemData then itemData = item end
             if itemData.info then itemData.metadata = itemData.info end
-            if not itemData.metadata then itemData.metadata = { contents = 800 } end
-            
+            if not itemData.metadata or not itemData.metadata.contents then debug('[DEBUG] - no metadata found') return end
+            TriggerClientEvent('r_whippets:useGas', src, flavor, itemData.metadata.contents)
         end)
     end
 end
