@@ -1,6 +1,15 @@
 local entities = {}
 local blips = {}
 
+RegisterNetEvent("r_whippets:ptfxEvent", function(netId)
+    if not NetworkDoesNetworkIdExist(netId) then return end
+    local entity = NetworkGetEntityFromNetworkId(netId)
+    local distance = #(GetEntityCoords(cache.ped) - GetEntityCoords(entity))
+    if not DoesEntityExist(entity) or distance > 50 then return end
+    local ptFxCoords = GetPedBoneCoords(entity, 47495, 0.0, 0.0, 0.0)
+    Core.Natives.PlayPtFxLooped(ptFxCoords, 'core', 'ent_amb_smoke_gaswork', 0.1, 500)
+end)
+
 lib.callback.register('r_whippets:openGasBox', function(flavor)
     local flavorData = Flavors[flavor]
     if lib.progressCircle({

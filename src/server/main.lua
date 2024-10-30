@@ -1,3 +1,7 @@
+RegisterNetEvent("r_whippets:ptfxEvent", function(netId)
+    TriggerClientEvent("r_whippets:ptfxEvent", -1, netId)
+end)
+
 lib.callback.register('r_whippets:shareGasWithNearestPlayer', function(src, flavor, contents)
     local playerPed = GetPlayerPed(src)
     local playerCoords = GetEntityCoords(playerPed)

@@ -147,8 +147,8 @@ local function useGas()
             StopAnimTask(cache.ped, 'amb@world_human_drinking@coffee@male@base', 'base', 1.0)
             HideControlsUi()
         else
-            local ptFxCoords = GetPedBoneCoords(cache.ped, 47495, 0.0, 0.0, 0.0)
-            Core.Natives.PlayPtFxLooped(ptFxCoords, 'core', 'ent_amb_smoke_gaswork', 0.1, 1000)
+            local netId = NetworkGetNetworkIdFromEntity(cache.ped)
+            TriggerServerEvent('r_whippets"ptfxEvent', netId)
             Core.Natives.PlayAnim(cache.ped, 'amb@world_human_drinking@coffee@male@base', 'base', -1, 49, 0.0)
         end
     end
