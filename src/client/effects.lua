@@ -65,7 +65,7 @@ local function increaseEffectStrength(duration)
     if effectStrength >= 1.0 then
         passout()
     end
-    SetTimeout((duration * 3) , function()
+    SetTimeout((duration * 4) * 1000, function()
         decreaseEffectStrength()
     end)
     debug('[DEBUG] - increased effect strength')
