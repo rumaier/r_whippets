@@ -25,6 +25,7 @@ body {
   height: 30px;
   right: 1%;
   bottom: 1%;
+  transition: opacity 0.5s ease;
 }
 
 .use-gas {

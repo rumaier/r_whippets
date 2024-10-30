@@ -17,6 +17,7 @@ lib.callback.register('r_whippets:storeGas', function(src, flavor, contents, bot
     local player = GetPlayerPed(src)
     bottleEntity = NetworkGetEntityFromNetworkId(bottleEntity)
     if not DoesEntityExist(bottleEntity) or GetEntityAttachedTo(bottleEntity) ~= player then return false end
+    -- TODO: add durability metadata key to show bar in inventories that support
     local added = Core.Inventory.AddItem(src, Flavors[flavor].bottleItem, 1, { contents = contents })
     if not added then return false end
     return true
