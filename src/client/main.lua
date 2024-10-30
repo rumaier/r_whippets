@@ -68,12 +68,14 @@ function SetupWhippetShop()
         table.insert(blips, Core.Natives.CreateBlip(coords.xyz, shop.Blip.Sprite, shop.Blip.Color, shop.Blip.Scale, shop.Blip.Label, true))
         lib.points.new({ coords = coords.xyz, distance = 150,
         onEnter = function()
-            if entities.shop then return end
-            entities.shop = Core.Natives.CreateNpc(shop.PedModel, coords.xyz, coords.w, false)
-            Core.Natives.SetEntityProperties(entities.shop, true, true, true)
-            -- TODO: replace below scenario with a gas bottle and the use animation
-            TaskStartScenarioInPlace(entities.shop, 'WORLD_HUMAN_STAND_IMPATIENT_UPRIGHT', 0, true)
-            Core.Target.AddLocalEntity(entities.shop, {
+            if entities.shopPed then return end
+            local gasProp = Flavors[math.random(1, #Flavors)].bottleProp
+            entities.shopPed = Core.Natives.CreateNpc(shop.PedModel, coords.xyz, coords.w, false)
+            Core.Natives.SetEntityProperties(entities.shopPed, true, true, true)
+            entities.shopGas = Core.Natives.CreateProp(gasProp, GetEntityCoords(entities.shopPed), GetEntityHeading(entities.shopPed), true)
+            AttachEntityToEntity(entities.shopGas, entities.shopPed, GetPedBoneIndex(entities.shopPed, 28422), -0.0089, -0.0009, -0.0678, -4.1979, 10.7573, -13.8231, true, true, false, true, 2, true)
+            Core.Natives.PlayAnim(entities.shopPed, 'amb@world_human_drinking@coffee@male@base', 'base', -1, 49, 0.0)
+            Core.Target.AddLocalEntity(entities.shopPed, {
                 {
                     label = _L('whippet_shop'),
                     name = 'whippet_shop',
