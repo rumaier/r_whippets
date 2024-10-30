@@ -1,7 +1,7 @@
 local entities = {}
 local blips = {}
 
-lib.callback.register('r_whippets:openGasBox', function(flavorData)
+lib.callback.register('r_whippets:openGasBox', function(flavor)
     if lib.progressCircle({
             duration = 5000,
             label = _L('opening_box'),
@@ -17,27 +17,28 @@ lib.callback.register('r_whippets:openGasBox', function(flavorData)
                 clip = 'idle_a',
             },
             prop = {
-                model = flavorData.boxProp,
+                model = Flavors[flavor].boxProp,
                 bone = 60309,
                 pos = vec3(-0.0973, -0.0161, -0.0709),
                 rot = vec3(15.4404, -5.0550, 17.0007)
             },
         }) then
+            TriggerEvent('r_whippets:useGas', flavor, 50)
         return true
     else
         return false
     end
 end)
 
-local function buyGas(flavor)
+local function buyGas(flavor, location)
     local alert = lib.alertDialog({ header = _L('buy_gas'), content = _L('buy_gas_confirm', flavor, Cfg.Options.WhippetShop.Price), centered = true, cancel = true })
     if alert == 'cancel' then return end
-    local purchased = lib.callback.await('r_whippets:purchaseGas', false, flavor)
-    if not purchased then lib.showContext('whippet_shop') debug('[ERROR] - Purchase failed', flavor) return end
+    local purchased = lib.callback.await('r_whippets:purchaseGas', false, flavor, location)
+    if not purchased then lib.showContext('whippet_shop') debug('[DEBUG] - Purchase failed', flavor) return end
     Core.Framework.Notify(_L('purchased_gas', string.format('%s gas', flavor), Cfg.Options.WhippetShop.Price), 'success')
 end
 
-local function openWhippetShop()
+local function openWhippetShop(location)
     local options = {}
     for flavor, data in pairs(Flavors) do
         local itemInfo = Core.Inventory.GetItemInfo(data.bottleItem)
@@ -47,7 +48,7 @@ local function openWhippetShop()
             icon = Cfg.Server.InventoryImagePath and string.format('%s/%s.png', Cfg.Server.InventoryImagePath, data.bottleItem) or 'rocket',
             image = Cfg.Server.InventoryImagePath and string.format('%s/%s.png', Cfg.Server.InventoryImagePath, data.boxItem) or 'rocket',
             onSelect = function()
-                buyGas(flavor)
+                buyGas(flavor, location)
             end
         })
     end
@@ -78,7 +79,7 @@ function SetupWhippetShop()
                     icon = 'fas fa-user-astronaut',
                     distance = 1.5,
                     onSelect = function()
-                        openWhippetShop()
+                        openWhippetShop(coords)
                     end
                 }
             })

@@ -1,6 +1,6 @@
-lib.callback.register('r_whippets:purchaseGas', function(src, flavor)
+lib.callback.register('r_whippets:purchaseGas', function(src, flavor, location)
     local player = GetPlayerPed(src)
-    local distance = #(GetEntityCoords(player) - Cfg.Options.WhippetShop.Coords.xyz)
+    local distance = #(GetEntityCoords(player) - location.xyz)
     if distance > 5 then DropPlayer(src, _L('cheater')) return false end
     local balance = Core.Framework.GetAccountBalance(src, 'money')
     if balance < Cfg.Options.WhippetShop.Price then 
@@ -16,9 +16,7 @@ end)
 lib.callback.register('r_whippets:storeGas', function(src, flavor, contents, bottleEntity)
     local player = GetPlayerPed(src)
     bottleEntity = NetworkGetEntityFromNetworkId(bottleEntity)
-    local distance = #(GetEntityCoords(player) - GetEntityCoords(bottleEntity))
-    if distance > 3 then print(distance) end
-    print(src, flavor, contents)
+    if not DoesEntityExist(bottleEntity) or GetEntityAttachedTo(bottleEntity) ~= player then return false end
     local added = Core.Inventory.AddItem(src, Flavors[flavor].bottleItem, 1, { contents = contents })
     if not added then return false end
     return true
@@ -28,9 +26,7 @@ local function openGasBox(src, flavor)
     local flavorData = Flavors[flavor]
     Core.Inventory.RemoveItem(src, flavorData.boxItem, 1)
     local opened = lib.callback.await('r_whippets:openGasBox', src, flavorData)
-    if opened then
-        Core.Inventory.AddItem(src, flavorData.bottleItem, 1, { contents = 800 })
-    else
+    if not opened then
         Core.Inventory.AddItem(src, flavorData.boxItem, 1)
     end
 end
