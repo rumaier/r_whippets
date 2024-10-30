@@ -6,9 +6,12 @@ Language['en'] = { -- English
 
     -- Notifications
     purchased_gas = 'You purchased %s for $%s.',
+    empty_bottle = 'You threw the empty bottle away.',
+    passout = 'You passed out from the gas.',
 
     -- Progress Bars
     opening_box = 'Opening Gas Box...',
+    using_gas = 'Using Gas...',
 
     -- Menu Titles
     buy_gas = 'Buy Solar Gas',
