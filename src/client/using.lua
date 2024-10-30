@@ -148,7 +148,7 @@ local function useGas()
             HideControlsUi()
         else
             local netId = NetworkGetNetworkIdFromEntity(cache.ped)
-            TriggerServerEvent('r_whippets"ptfxEvent', netId)
+            TriggerServerEvent('r_whippets:ptfxEvent', netId)
             Core.Natives.PlayAnim(cache.ped, 'amb@world_human_drinking@coffee@male@base', 'base', -1, 49, 0.0)
         end
     end
