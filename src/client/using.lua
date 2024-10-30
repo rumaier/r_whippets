@@ -64,6 +64,7 @@ local function disableAllControls(duration)
 end
 
 local function passout()
+    -- TODO: fix offset when passed out
     HideControlsUi()
     disableAllControls(5000)
     SetPedToRagdoll(cache.ped, 5000, 5000, 0, 0, 0, 0)
@@ -138,6 +139,7 @@ local function useGas()
             bottleContents = nil
             Core.Framework.Notify(_L('empty_bottle'), 'info')
             DeleteEntity(entities.gasBottle)
+            StopAnimTask(cache.ped, 'amb@world_human_drinking@coffee@male@base', 'base', 1.0)
             HideControlsUi()
         else
             local ptFxCoords = GetPedBoneCoords(cache.ped, 47495, 0.0, 0.0, 0.0)
