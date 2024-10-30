@@ -134,19 +134,21 @@ local function useGas()
 end
 
 local function startListeningForInput()
-    local listening = true
-    while listening and bottleContents do
-        DisableFrontendThisFrame()
-        if IsControlJustPressed(0, 38) then
-            useGas()
-        elseif IsControlJustPressed(0, 73) then
-            storeGas()
-            SetTimeout(500, function()
-                listening = false
-            end)
+    CreateThread(function()
+        local listening = true
+        while listening and bottleContents do
+            DisableFrontendThisFrame()
+            if IsControlJustPressed(0, 38) then
+                useGas()
+            elseif IsControlJustPressed(0, 73) then
+                storeGas()
+                SetTimeout(500, function()
+                    listening = false
+                end)
+            end
+            Wait(0)
         end
-        Wait(0)
-    end
+    end)
 end
 
 local function holdGas(flavor, contents)
