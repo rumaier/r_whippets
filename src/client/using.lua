@@ -18,14 +18,17 @@ local function handoverGas()
     local duration = GetAnimDuration('mp_common', 'givetake1_a') * 1000
     local shared = lib.callback.await('r_whippets:shareGasWithNearestPlayer', false, bottleFlavor, bottleContents)
     if not shared then debug('[DEBUG] - sharing failed') return end
+    StopAnimTask(cache.ped, 'amb@world_human_drinking@coffee@male@base', 'base', 1.0)
     Core.Natives.PlayAnim(cache.ped, 'mp_common', 'givetake1_a', duration, 16, 0.0)
-    Core.Target.RemoveGlobalPlayer()
-    DeleteEntity(entities.gasBottle)
-    HideControlsUi()
-    bottleFlavor = nil
-    bottleContents = nil
-    entities.gasBottle = nil
-    debug('[DEBUG] - shared gas')
+    SetTimeout(duration * 0.5, function()
+        Core.Target.RemoveGlobalPlayer()
+        DeleteEntity(entities.gasBottle)
+        HideControlsUi()
+        bottleFlavor = nil
+        bottleContents = nil
+        entities.gasBottle = nil
+        debug('[DEBUG] - shared gas')
+    end)
 end
 
 RegisterNetEvent('r_whippets:takeGas', function(flavor, contents)

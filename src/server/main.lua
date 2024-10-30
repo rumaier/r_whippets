@@ -2,7 +2,6 @@ lib.callback.register('r_whippets:shareGasWithNearestPlayer', function(src, flav
     local playerPed = GetPlayerPed(src)
     local playerCoords = GetEntityCoords(playerPed)
     local target = lib.getNearbyPlayers(playerCoords, 1.0)
-    print(json.encode(target))
     for _, player in pairs(target) do
         if player.id ~= src then
             print('[DEBUG] - sharing gas with', player.id)
