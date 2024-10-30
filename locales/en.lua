@@ -3,6 +3,7 @@ Language['en'] = { -- English
 
     -- Target Options
     whippet_shop = 'Whippet Shop',
+    share_gas = 'Share Gas',
 
     -- Notifications
     insufficient_funds = 'You do not have enough money to purchase gas.',

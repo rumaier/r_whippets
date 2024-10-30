@@ -3,7 +3,36 @@ local bottleFlavor = nil
 local bottleContents = nil
 local effectStrength = 0
 
--- TODO: pass whippet to nearest player
+-- SHARING WHIPPETS
+
+local function takeGas(flavor, contents)
+    local duration = GetAnimDuration('mp_common', 'givetake1_a') * 1000
+    Core.Natives.PlayAnim(cache.ped, 'mp_common', 'givetake1_a', duration, 16, 0.0)
+    SetTimeout(duration * 0.5, function()
+        TriggerEvent('r_whippets:holdGas', flavor, contents)
+        debug('[DEBUG] - took gas')
+    end)
+end
+
+local function handoverGas()
+    local duration = GetAnimDuration('mp_common', 'givetake1_a') * 1000
+    local shared = lib.callback.await('r_whippets:shareGasWithNearestPlayer', false, bottleFlavor, bottleContents)
+    if not shared then debug('[DEBUG] - sharing failed') return end
+    Core.Natives.PlayAnim(cache.ped, 'mp_common', 'givetake1_a', duration, 16, 0.0)
+    Core.Target.RemoveGlobalPlayer()
+    DeleteEntity(entities.gasBottle)
+    HideControlsUi()
+    bottleFlavor = nil
+    bottleContents = nil
+    entities.gasBottle = nil
+    debug('[DEBUG] - shared gas')
+end
+
+RegisterNetEvent('r_whippets:takeGas', function(flavor, contents)
+    takeGas(flavor, contents)
+end)
+
+-- USE WHIPPETS
 
 local function storeGas()
     local netId = NetworkGetNetworkIdFromEntity(entities.gasBottle)
@@ -12,6 +41,7 @@ local function storeGas()
     if stored then
         HideControlsUi()
         DeleteEntity(entities.gasBottle)
+        Core.Target.RemoveGlobalPlayer()
         bottleFlavor = nil
         bottleContents = nil
         entities.gasBottle = nil
@@ -140,12 +170,21 @@ local function holdGas(flavor, contents)
     entities.gasBottle = Core.Natives.CreateProp(prop, GetEntityCoords(cache.ped), GetEntityHeading(cache.ped), true)
     AttachEntityToEntity(entities.gasBottle, cache.ped, GetPedBoneIndex(cache.ped, 28422), -0.0089, -0.0009, -0.0678, -4.1979, 10.7573, -13.8231, true, true, false, true, 2, true)
     Core.Natives.PlayAnim(cache.ped, 'amb@world_human_drinking@coffee@male@base', 'base', -1, 49, 0.0)
+    Core.Target.AddGlobalPlayer({
+        label = _L('share_gas'),
+        name = 'share_gas',
+        icon = 'fas fa-user-astronaut',
+        distance = 1.0,
+        onSelect = function()
+            handoverGas()
+        end
+    })
     ShowControlsUi(contents)
     startListeningForInput()
     debug('[DEBUG] - pulled out gas')
 end
 
-RegisterNetEvent('r_whippets:useGas', function(flavor, contents)
+RegisterNetEvent('r_whippets:holdGas', function(flavor, contents)
     holdGas(flavor, contents)
 end)
 

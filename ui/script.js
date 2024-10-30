@@ -3,7 +3,6 @@
 function ShowControls(contents) {
     let progress = document.getElementById("progress-bar");
     let controls = document.getElementById("controls-ui");
-    console.log(progress.value);
     progress.value = contents;
     controls.style.display = "flex";
 }

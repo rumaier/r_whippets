@@ -1,3 +1,18 @@
+lib.callback.register('r_whippets:shareGasWithNearestPlayer', function(src, flavor, contents)
+    local playerPed = GetPlayerPed(src)
+    local playerCoords = GetEntityCoords(playerPed)
+    local target = lib.getNearbyPlayers(playerCoords, 1.0)
+    print(json.encode(target))
+    for _, player in pairs(target) do
+        if player.id ~= src then
+            print('[DEBUG] - sharing gas with', player.id)
+            TriggerClientEvent('r_whippets:takeGas', player.id, flavor, contents)
+            return true
+        end
+    end
+    return false
+end)
+
 lib.callback.register('r_whippets:purchaseGas', function(src, flavor, location)
     local player = GetPlayerPed(src)
     local distance = #(GetEntityCoords(player) - location.xyz)
@@ -17,8 +32,8 @@ lib.callback.register('r_whippets:storeGas', function(src, flavor, contents, bot
     local player = GetPlayerPed(src)
     bottleEntity = NetworkGetEntityFromNetworkId(bottleEntity)
     if not DoesEntityExist(bottleEntity) or GetEntityAttachedTo(bottleEntity) ~= player then return false end
-    -- TODO: add durability metadata key to show bar in inventories that support
-    local added = Core.Inventory.AddItem(src, Flavors[flavor].bottleItem, 1, { contents = contents })
+    local durability = math.floor((100/800) * contents)
+    local added = Core.Inventory.AddItem(src, Flavors[flavor].bottleItem, 1, { contents = contents, durability = durability })
     if not added then return false end
     return true
 end)
@@ -42,7 +57,7 @@ local function registerUsableItems()
             if itemData.info then itemData.metadata = itemData.info end
             if not itemData.metadata or not itemData.metadata.contents then debug('[DEBUG] - no metadata found') return end
             Core.Inventory.RemoveItem(src, Flavors[flavor].bottleItem, 1, itemData.metadata)
-            TriggerClientEvent('r_whippets:useGas', src, flavor, itemData.metadata.contents)
+            TriggerClientEvent('r_whippets:holdGas', src, flavor, itemData.metadata.contents)
         end)
     end
 end

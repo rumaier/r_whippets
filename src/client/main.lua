@@ -24,7 +24,7 @@ lib.callback.register('r_whippets:openGasBox', function(flavor)
                 rot = vec3(15.4404, -5.0550, 17.0007)
             },
         }) then
-            TriggerEvent('r_whippets:useGas', flavor, 800)
+            TriggerEvent('r_whippets:holdGas', flavor, 800)
         return true
     else
         return false
@@ -68,7 +68,7 @@ function SetupWhippetShop()
         table.insert(blips, Core.Natives.CreateBlip(coords.xyz, shop.Blip.Sprite, shop.Blip.Color, shop.Blip.Scale, shop.Blip.Label, true))
         lib.points.new({ coords = coords.xyz, distance = 150,
         onEnter = function()
-            if entities.shopPed then return end
+            if DoesEntityExist(entities.shopPed) then return end
             entities.shopPed = Core.Natives.CreateNpc(shop.PedModel, coords.xyz, coords.w, false)
             Core.Natives.SetEntityProperties(entities.shopPed, true, true, true)
             entities.shopGas = Core.Natives.CreateProp(Flavors['banana'].bottleProp, GetEntityCoords(entities.shopPed), GetEntityHeading(entities.shopPed), false)
@@ -133,6 +133,8 @@ AddEventHandler('onResourceStop', function(resource)
         for _, entity in pairs(entities) do
             DeleteEntity(entity)
         end
-        Core.Natives.RemoveBlip(shopBlip)
+        for _, blip in pairs(blips) do
+            RemoveBlip(blip)
+        end
     end
 end)
