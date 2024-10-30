@@ -11,6 +11,9 @@
 - 💎 A unique UI for a more immersive experience while using whippets.
 - 🤝️ Share canisters with friends so they can kill brain cells too.
 
+## Prop Used
+[Vello Mods - Solar Gas Props](https://github.com/Vello-Mods/vello_solargas)
+
 ## Dependencies
 
 - [r_bridge](https://github.com/rumaier/r_bridge/releases)
