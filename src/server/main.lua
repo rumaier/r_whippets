@@ -2,6 +2,11 @@ lib.callback.register('r_whippets:purchaseGas', function(src, flavor)
     local player = GetPlayerPed(src)
     local distance = #(GetEntityCoords(player) - Cfg.Options.WhippetShop.Coords.xyz)
     if distance > 5 then DropPlayer(src, _L('cheater')) return false end
+    local balance = Core.Framework.GetAccountBalance(src, 'money')
+    if balance < Cfg.Options.WhippetShop.Price then 
+        Core.Framework.Notify(src, _L('insufficient_funds'), 'error')
+        return false 
+    end
     local added = Core.Inventory.AddItem(src, Flavors[flavor].boxItem, 1)
     if not added then debug('[DEBUG] - Error adding item', src, Flavors[flavor].boxItem) return false end
     Core.Framework.RemoveAccountBalance(src, 'money', Cfg.Options.WhippetShop.Price)

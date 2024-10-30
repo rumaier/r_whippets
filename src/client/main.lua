@@ -33,7 +33,7 @@ local function buyGas(flavor)
     local alert = lib.alertDialog({ header = _L('buy_gas'), content = _L('buy_gas_confirm', flavor, Cfg.Options.WhippetShop.Price), centered = true, cancel = true })
     if alert == 'cancel' then return end
     local purchased = lib.callback.await('r_whippets:purchaseGas', false, flavor)
-    if not purchased then debug('[ERROR] - Purchase failed', flavor) return end
+    if not purchased then lib.showContext('whippet_shop') debug('[ERROR] - Purchase failed', flavor) return end
     Core.Framework.Notify(_L('purchased_gas', string.format('%s gas', flavor), Cfg.Options.WhippetShop.Price), 'success')
 end
 

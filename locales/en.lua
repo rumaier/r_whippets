@@ -5,6 +5,7 @@ Language['en'] = { -- English
     whippet_shop = 'Whippet Shop',
 
     -- Notifications
+    insufficient_funds = 'You do not have enough money to purchase gas.',
     purchased_gas = 'You purchased %s for $%s.',
     empty_bottle = 'You threw the empty bottle away.',
     passout = 'You passed out from the gas.',

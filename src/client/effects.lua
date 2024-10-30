@@ -18,11 +18,13 @@ local function storeGas()
 end
 
 local function disableAllControls(duration)
-    local start = GetGameTimer()
-    while GetGameTimer() - start < duration do
-        DisableAllControlActions(0)
-        Wait(0)
-    end
+    CreateThread(function()
+        local start = GetGameTimer()
+        while GetGameTimer() - start < duration do
+            DisableAllControlActions(0)
+            Wait(0)
+        end
+    end)
 end
 
 local function passout()
@@ -65,7 +67,7 @@ local function increaseEffectStrength(duration)
     if effectStrength >= 1.0 then
         passout()
     end
-    SetTimeout((duration * 4) * 1000, function()
+    SetTimeout((duration * 5) * 1000, function()
         decreaseEffectStrength()
     end)
     debug('[DEBUG] - increased effect strength')
@@ -76,7 +78,7 @@ local function updateContentsInTextUi()
         for i = 0, 50 do
             local contents = (bottleContents + 50) - i
             Core.Ui.ShowTextUi('E', _L('text_ui', contents))
-            Wait(100)
+            Wait(60)
         end
     end)
 end
@@ -87,7 +89,7 @@ local function useGas()
     AttachEntityToEntity(entities.gasBottle, cache.ped, GetPedBoneIndex(cache.ped, 28422), -0.0089, -0.0009, -0.0678, -4.1979, 10.7573, -13.8231, true, true, false, true, 2, true)
     updateContentsInTextUi()
     if lib.progressCircle({
-            duration = duration * 500,
+            duration = duration * 600,
             label = _L('using_gas'),
             position = 'bottom',
             useWhileDead = false,
@@ -111,7 +113,7 @@ local function useGas()
         else
             local ptFxCoords = GetPedBoneCoords(cache.ped, 47495, 0.0, 0.0, 0.0)
             AttachEntityToEntity(entities.gasBottle, cache.ped, GetPedBoneIndex(cache.ped, 28422), 0.0085, 0.0157, -0.0653, 0, 0, 0, true, true, false, true, 2, true)
-            Core.Natives.PlayPtFxLooped(ptFxCoords, 'core', 'ent_amb_smoke_gaswork', 0.3, 1000)
+            Core.Natives.PlayPtFxLooped(ptFxCoords, 'core', 'ent_amb_smoke_gaswork', 0.1, 1000)
             Core.Natives.PlayAnim(cache.ped, 'amb@world_human_drinking@coffee@male@base', 'base', -1, 49, 0.0)
         end
     end
