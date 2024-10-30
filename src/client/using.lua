@@ -99,7 +99,6 @@ local function useGas()
     bottleContents = bottleContents - 50
     local duration = GetAnimDuration('amb@world_human_drinking@coffee@male@idle_a', 'idle_a')
     print(duration)
-    AttachEntityToEntity(entities.gasBottle, cache.ped, GetPedBoneIndex(cache.ped, 28422), -0.0089, -0.0009, -0.0678, -4.1979, 10.7573, -13.8231, true, true, false, true, 2, true)
     updateContentsInTextUi()
     if lib.progressCircle({
             duration = duration * 600,
@@ -127,7 +126,6 @@ local function useGas()
             hideUi()
         else
             local ptFxCoords = GetPedBoneCoords(cache.ped, 47495, 0.0, 0.0, 0.0)
-            AttachEntityToEntity(entities.gasBottle, cache.ped, GetPedBoneIndex(cache.ped, 28422), -0.0089, -0.0009, -0.0678, -4.1979, 10.7573, -13.8231, true, true, false, true, 2, true)
             Core.Natives.PlayPtFxLooped(ptFxCoords, 'core', 'ent_amb_smoke_gaswork', 0.1, 1000)
             Core.Natives.PlayAnim(cache.ped, 'amb@world_human_drinking@coffee@male@base', 'base', -1, 49, 0.0)
         end
