@@ -121,13 +121,6 @@ function UpdateUiProgressBar(contents)
     })
 end
 
--- REMOVE: This is a temporary event handler to test the whippet shop
-AddEventHandler('onResourceStart', function(resource)
-    if resource == GetCurrentResourceName() then
-        SetupWhippetShop()
-    end
-end)
-
 AddEventHandler('onResourceStop', function(resource)
     if resource == GetCurrentResourceName() then
         for _, entity in pairs(entities) do
