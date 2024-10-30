@@ -138,6 +138,8 @@ local function startListeningForInput()
         local listening = true
         while listening and bottleContents do
             DisableFrontendThisFrame()
+            DisableControlAction(0, 24, true)
+            DisableControlAction(0, 140, true)
             if IsControlJustPressed(0, 38) then
                 useGas()
             elseif IsControlJustPressed(0, 73) then
