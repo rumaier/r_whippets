@@ -64,9 +64,9 @@ local function disableAllControls(duration)
 end
 
 local function passout()
-    -- TODO: fix offset when passed out
     HideControlsUi()
     disableAllControls(5000)
+    AttachEntityToEntity(entities.gasBottle, cache.ped, GetPedBoneIndex(cache.ped, 28422), 0.0617, 0.0136, -0.0500, -52.8818, -13.3495, -13.1849, true, true, false, true, 2, true)
     SetPedToRagdoll(cache.ped, 5000, 5000, 0, 0, 0, 0)
     DoScreenFadeOut(750)
     Core.Framework.Notify(_L('passout'), 'info')
