@@ -1,4 +1,4 @@
-# r_moneywash
+# r_whippets
 
 ## Description
 
