@@ -120,6 +120,13 @@ function UpdateUiProgressBar(contents)
         contents = contents,
     })
 end
+-- REMOVE: this handler below
+AddEventHandler('onResourceStart', function(resource)
+    if resource == GetCurrentResourceName() then
+        Wait(1000)
+        SetupWhippetShop()
+    end
+end)
 
 AddEventHandler('onResourceStop', function(resource)
     if resource == GetCurrentResourceName() then

@@ -43,7 +43,6 @@ local function storeGas()
     local stored = lib.callback.await('r_whippets:storeGas', false, bottleFlavor, bottleContents, netId)
     if stored then
         HideControlsUi()
-        Core.Target.RemoveGlobalPlayer()
         SetTimeout(500, function()
             DeleteEntity(entities.gasBottle)
             bottleFlavor = nil
@@ -153,7 +152,9 @@ local function startListeningForInput()
         local listening = true
         while listening and bottleContents do
             DisableFrontendThisFrame()
+            DisableControlAction(0, 23, true)
             DisableControlAction(0, 24, true)
+            DisableControlAction(0, 25, true)
             DisableControlAction(0, 140, true)
             if IsControlJustPressed(0, 38) then
                 useGas()
@@ -180,6 +181,9 @@ local function holdGas(flavor, contents)
         name = 'share_gas',
         icon = 'fas fa-user-astronaut',
         distance = 1.0,
+        canInteract = function()
+            return bottleContents and bottleContents > 0
+        end,
         onSelect = function()
             handoverGas()
         end
