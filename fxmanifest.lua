@@ -6,7 +6,7 @@ lua54 'yes'
 name 'r_whippets'
 description 'Whippets script for FiveM'
 author 'r_scripts'
-version '0.9.9'
+version '1.0.0'
 
 shared_scripts {
     '@ox_lib/init.lua',
