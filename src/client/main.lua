@@ -2,6 +2,7 @@ local entities = {}
 local blips = {}
 
 lib.callback.register('r_whippets:openGasBox', function(flavor)
+    local flavorData = Flavors[flavor]
     if lib.progressCircle({
             duration = 5000,
             label = _L('opening_box'),
@@ -17,13 +18,13 @@ lib.callback.register('r_whippets:openGasBox', function(flavor)
                 clip = 'idle_a',
             },
             prop = {
-                model = Flavors[flavor].boxProp,
+                model = flavorData.boxProp,
                 bone = 60309,
                 pos = vec3(-0.0973, -0.0161, -0.0709),
                 rot = vec3(15.4404, -5.0550, 17.0007)
             },
         }) then
-            TriggerEvent('r_whippets:useGas', flavor, 50)
+            TriggerEvent('r_whippets:useGas', flavor, 800)
         return true
     else
         return false

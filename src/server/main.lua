@@ -25,7 +25,7 @@ end)
 local function openGasBox(src, flavor)
     local flavorData = Flavors[flavor]
     Core.Inventory.RemoveItem(src, flavorData.boxItem, 1)
-    local opened = lib.callback.await('r_whippets:openGasBox', src, flavorData)
+    local opened = lib.callback.await('r_whippets:openGasBox', src, flavor)
     if not opened then
         Core.Inventory.AddItem(src, flavorData.boxItem, 1)
     end
