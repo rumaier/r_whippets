@@ -1,5 +1,5 @@
 local entities = {}
-local shopBlip = nil
+local blips = {}
 
 lib.callback.register('r_whippets:openGasBox', function(flavorData)
     if lib.progressCircle({
@@ -62,12 +62,14 @@ end
 
 function SetupWhippetShop()
     local shop = Cfg.Options.WhippetShop
-    shopBlip = Core.Natives.CreateBlip(shop.Coords.xyz, 368, 7, 1.2, _L('whippet_shop'), true)
-    lib.points.new({ coords = shop.Coords.xyz, distance = 150,
+    for _, coords in pairs(shop.Locations) do
+        table.insert(blips, Core.Natives.CreateBlip(coords.xyz, shop.Blip.Sprite, shop.Blip.Color, shop.Blip.Scale, shop.Blip.Label, true))
+        lib.points.new({ coords = coords.xyz, distance = 150,
         onEnter = function()
             if entities.shop then return end
-            entities.shop = Core.Natives.CreateNpc(shop.PedModel, shop.Coords.xyz, shop.Coords.w, false)
+            entities.shop = Core.Natives.CreateNpc(shop.PedModel, coords.xyz, coords.w, false)
             Core.Natives.SetEntityProperties(entities.shop, true, true, true)
+            -- TODO: replace below scenario with a gas bottle and the use animation
             TaskStartScenarioInPlace(entities.shop, 'WORLD_HUMAN_STAND_IMPATIENT_UPRIGHT', 0, true)
             Core.Target.AddLocalEntity(entities.shop, {
                 {
@@ -89,8 +91,9 @@ function SetupWhippetShop()
             debug('[DEBUG] - Whippet shop ped removed', entities.shop)
         end,
     })
+    end
 end
- 
+
 -- REMOVE: This is a temporary event handler to test the whippet shop
 AddEventHandler('onResourceStart', function(resource)
     if resource == GetCurrentResourceName() then

@@ -26,9 +26,20 @@ Cfg = {
     Options = {
         WhippetShop = {
             Enabled = true,                                  -- Enable whippet shop (true: enabled, false: disabled)
-            Coords = vec4(-1171.52, -1572.57, 3.66, 115.16), -- Whippet shop coordinates (vector4)
+            Locations = {                                    -- Whippet shop locations (vec4)
+                vec4(-1171.52, -1572.57, 3.66, 115.16),
+                vec4(201.28, -237.67, 52.97, 296.50),
+            }, 
             PedModel = 'u_m_y_dancerave_01',                 -- Whippet shop ped model (ped model)
             Price = 40,                                      -- Whippet price (number)
+
+            Blip = {                                     -- Whippet shop blip settings
+                Sprite = 368,                                 -- Blip sprite (number)
+                Color = 7,                                    -- Blip color (number)
+                Scale = 1.2,                                  -- Blip scale (number)
+                Label = 'Whippet Shop',                       -- Blip label (string)
+
+            }
         },
         PassoutTime = 10,                                    -- Passout time (seconds)
     },
