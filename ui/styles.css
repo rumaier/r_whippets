@@ -1,10 +1,11 @@
 body {
+  margin: 0;
   height: 100vh;
-  background-image: url('https://img.gta5-mods.com/q95/images/gta-v-remastered-enhanced/d00dc4-Screenshot_113420.jpg');
+  /* background-image: url('https://img.gta5-mods.com/q95/images/gta-v-remastered-enhanced/d00dc4-Screenshot_113420.jpg');
   background-color: #333;
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat; */
 }
 
 .game-screen {
@@ -15,7 +16,7 @@ body {
 }
 
 .controls-ui {
-  display: flex;
+  display: none;
   position: fixed;
   background-color: #0f0f0fc5;
   border-radius: 6px;

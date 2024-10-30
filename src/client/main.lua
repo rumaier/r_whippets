@@ -99,6 +99,28 @@ function SetupWhippetShop()
     end
 end
 
+-- NUI Functions
+
+function ShowControlsUi(contents)
+    SendNUIMessage({
+        action = 'showControls',
+        contents = contents,
+    })
+end
+
+function HideControlsUi()
+    SendNUIMessage({
+        action = 'hideControls',
+    })
+end
+
+function UpdateUiProgressBar(contents)
+    SendNUIMessage({
+        action = 'updateProgressBar',
+        contents = contents,
+    })
+end
+
 -- REMOVE: This is a temporary event handler to test the whippet shop
 AddEventHandler('onResourceStart', function(resource)
     if resource == GetCurrentResourceName() then

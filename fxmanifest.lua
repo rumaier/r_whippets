@@ -26,6 +26,14 @@ client_scripts {
     'src/client/*.lua',
 }
 
+ui_page 'ui/index.html'
+
+files {
+    'ui/index.html',
+    'ui/styles.css',
+    'ui/script.js'
+}
+
 data_file 'DLC_ITYP_REQUEST' 'stream/vello_solargas.ytyp'
 
 dependencies {

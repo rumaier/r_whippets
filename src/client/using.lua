@@ -3,21 +3,14 @@ local bottleFlavor = nil
 local bottleContents = nil
 local effectStrength = 0
 
--- TODO: make a controls UI for this shit cause Newb wants to make people self concious about their UI 
-
 -- TODO: pass whippet to nearest player
-
-local function hideUi()
-    Core.Ui.HideHelpText()
-    Core.Ui.HideTextUi()
-end
 
 local function storeGas()
     local netId = NetworkGetNetworkIdFromEntity(entities.gasBottle)
     Core.Natives.PlayAnim(cache.ped, 'melee@holster', 'holster', 1000, 49, 0.0)
     local stored = lib.callback.await('r_whippets:storeGas', false, bottleFlavor, bottleContents, netId)
     if stored then
-        hideUi()
+        HideControlsUi()
         DeleteEntity(entities.gasBottle)
         bottleFlavor = nil
         bottleContents = nil
@@ -37,7 +30,7 @@ local function disableAllControls(duration)
 end
 
 local function passout()
-    hideUi()
+    HideControlsUi()
     disableAllControls(5000)
     SetPedToRagdoll(cache.ped, 5000, 5000, 0, 0, 0, 0)
     DoScreenFadeOut(750)
@@ -46,8 +39,7 @@ local function passout()
         DoScreenFadeIn(500)
         Wait(1000)
         Core.Natives.PlayAnim(cache.ped, 'amb@world_human_drinking@coffee@male@base', 'base', -1, 49, 0.0)
-        Core.Ui.ShowHelpText(_L('help_text'))
-        Core.Ui.ShowTextUi('E', _L('text_ui', bottleContents))
+        ShowControlsUi(bottleContents)
     end)
 end
 
@@ -85,21 +77,10 @@ local function increaseEffectStrength(duration)
     debug('[DEBUG] - increased effect strength')
 end
 
-local function updateContentsInTextUi()
-    CreateThread(function()
-        for i = 0, 50 do
-            local contents = (bottleContents + 50) - i
-            Core.Ui.ShowTextUi('E', _L('text_ui', contents))
-            Wait(30)
-        end
-    end)
-end
-
 local function useGas()
     bottleContents = bottleContents - 50
-    local duration = GetAnimDuration('amb@world_human_drinking@coffee@male@idle_a', 'idle_a')
-    print(duration)
-    updateContentsInTextUi()
+    local duration = 6.2666664123535
+    UpdateUiProgressBar(bottleContents)
     if lib.progressCircle({
             duration = duration * 600,
             label = _L('using_gas'),
@@ -123,7 +104,7 @@ local function useGas()
             bottleContents = nil
             Core.Framework.Notify(_L('empty_bottle'), 'info')
             DeleteEntity(entities.gasBottle)
-            hideUi()
+            HideControlsUi()
         else
             local ptFxCoords = GetPedBoneCoords(cache.ped, 47495, 0.0, 0.0, 0.0)
             Core.Natives.PlayPtFxLooped(ptFxCoords, 'core', 'ent_amb_smoke_gaswork', 0.1, 1000)
@@ -159,8 +140,7 @@ local function holdGas(flavor, contents)
     entities.gasBottle = Core.Natives.CreateProp(prop, GetEntityCoords(cache.ped), GetEntityHeading(cache.ped), true)
     AttachEntityToEntity(entities.gasBottle, cache.ped, GetPedBoneIndex(cache.ped, 28422), -0.0089, -0.0009, -0.0678, -4.1979, 10.7573, -13.8231, true, true, false, true, 2, true)
     Core.Natives.PlayAnim(cache.ped, 'amb@world_human_drinking@coffee@male@base', 'base', -1, 49, 0.0)
-    Core.Ui.ShowTextUi('E', _L('text_ui', contents))
-    Core.Ui.ShowHelpText(_L('help_text'))
+    ShowControlsUi(contents)
     startListeningForInput()
     debug('[DEBUG] - pulled out gas')
 end
@@ -173,7 +153,7 @@ AddEventHandler('onResourceStop', function(resource)
     if resource == GetCurrentResourceName() then
         StopAnimTask(cache.ped, 'amb@world_human_drinking@coffee@male@base', 'base', 1.0)
         SetTimecycleModifier('default')
-        hideUi()
+        HideControlsUi()
         for _, entity in pairs(entities) do
             DeleteEntity(entity)
         end
