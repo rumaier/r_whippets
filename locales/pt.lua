@@ -1,23 +1,38 @@
 Language = Language or {}
 Language['pt'] = { -- Portuguese
 
-    -- Menu Titles
+    -- Opções de Alvo
+    whippet_shop = 'Loja Whippet',
+    share_gas = 'Compartilhar Gás',
 
-    -- Target Options
+    -- Notificações
+    insufficient_funds = 'Você não tem dinheiro suficiente para comprar gás.',
+    purchased_gas = 'Você comprou %s por $%s.',
+    empty_bottle = 'Você jogou a garrafa vazia fora.',
+    passout = 'Você desmaiou por causa do gás.',
 
-    -- Notifications
+    -- Barras de Progresso
+    opening_box = 'Abrindo caixa de gás...',
+    using_gas = 'Usando gás...',
 
-    -- Discord Webhook
-    player_id = 'ID do jogador',
-    username = 'Nome de usuário',
-    identifier = 'Identificador',
-    description = 'Descrição',
-    test_event = 'Evento de teste',
+    -- Títulos de Menu
+    buy_gas = 'Comprar Gás Solar',
 
-    -- Server Console
+    -- Opções de Menu
+    shop_item = '%s ($%s)',
+
+    -- Subtítulos de Menu
+    buy_gas_confirm = 'Tem certeza de que quer comprar %s por $%s?',
+
+    -- Elementos de Interface
+    text_ui = 'Usar Gás (%sg)',
+    help_text = 'Pressione X para armazenar gás',
+
+    -- Console do Servidor
     version = '%s | v%s',
-    framework = 'Estrutura: %s',
-    inventory = 'Inventário: %s',
-    target = 'Alvo: %s', 
-    cheater = 'ID do jogador: %s é um suspeito de trapaceiro!'
+    no_bridge = '^1Bridge não detectada, verifique se está em execução.^0',
+    bridge_detected = '^2Bridge detectada e carregada.^0',
+    cheater = 'Expulso por trapaça.',
+    update = 'Por favor, atualize %s para a versão mais recente no Github',
+
 }

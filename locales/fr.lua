@@ -1,23 +1,38 @@
 Language = Language or {}
 Language['fr'] = { -- French
 
-    -- Menu Titles
-
-    -- Target Options
+    -- Options Cibles
+    whippet_shop = 'Boutique Whippet',
+    share_gas = 'Partager le Gaz',
 
     -- Notifications
+    insufficient_funds = 'Vous n’avez pas assez d’argent pour acheter du gaz.',
+    purchased_gas = 'Vous avez acheté %s pour $%s.',
+    empty_bottle = 'Vous avez jeté la bouteille vide.',
+    passout = 'Vous vous êtes évanoui à cause du gaz.',
 
-    -- Discord Webhook
-    player_id = 'ID du joueur',
-    username = 'Nom d\'utilisateur',
-    identifier = 'Identifiant',
-    description = 'Description',
-    test_event = 'Événement de test',
+    -- Barres de Progression
+    opening_box = 'Ouverture de la boîte de gaz...',
+    using_gas = 'Utilisation du gaz...',
 
-    -- Server Console
+    -- Titres de Menu
+    buy_gas = 'Acheter du Gaz Solaire',
+
+    -- Options de Menu
+    shop_item = '%s ($%s)',
+
+    -- Sous-titres de Menu
+    buy_gas_confirm = 'Êtes-vous sûr de vouloir acheter %s pour $%s?',
+
+    -- Éléments d’Interface
+    text_ui = 'Utiliser le gaz (%sg)',
+    help_text = 'Appuyez sur X pour stocker le gaz',
+
+    -- Console Serveur
     version = '%s | v%s',
-    framework = 'Cadre: %s',
-    inventory = 'Inventaire: %s',
-    target = 'Cible: %s', 
-    cheater = 'Identifiant du joueur: %s est un tricheur présumé !'
+    no_bridge = '^1Pont non détecté, veuillez vérifier qu’il est en cours d’exécution.^0',
+    bridge_detected = '^2Pont détecté et chargé.^0',
+    cheater = 'Expulsé pour tricherie.',
+    update = 'Veuillez mettre à jour %s vers la dernière version depuis Github',
+
 }

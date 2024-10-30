@@ -28,18 +28,10 @@ Language['en'] = { -- English
     text_ui = 'Use Gas (%sg)',
     help_text = 'Press X to store gas',
 
-    -- Discord Webhook
-    player_id = 'Player ID',
-    username = 'Username',
-    identifier = 'Identifier',
-    description = 'Description',
-    test_event = 'Test Event',
-
     -- Server Console
     version = '%s | v%s',
-    framework = 'Framework: %s',
-    inventory = 'Inventory: %s',
-    target = 'Target: %s', 
+    no_bridge = '^1Bridge not detected, please ensure it is running.^0',
+    bridge_detected = '^2Bridge detected and loaded.^0',
     cheater = 'Kicked for cheating.',
-    update = 'Please update %s to the latest version from Keymaster',
+    update = 'Please update %s to the latest version from Github',
 }

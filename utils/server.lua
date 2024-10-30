@@ -63,9 +63,9 @@ AddEventHandler('onResourceStart', function(resourceName)
         print('------------------------------')
         print(_L('version', resourceName, GetResourceMetadata(resourceName, 'version', 0)))
         if GetResourceState('r_bridge') ~= 'started' then
-            print('^1Bridge not detected, please ensure it is running.^0')
+            print(_L('no_bridge'))
         else
-            print('^2Bridge detected and loaded.^0')
+            print(_L('bridge_detected'))
         end
         print('------------------------------')
         checkVersion()
