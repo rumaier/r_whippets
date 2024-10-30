@@ -43,12 +43,14 @@ local function storeGas()
     local stored = lib.callback.await('r_whippets:storeGas', false, bottleFlavor, bottleContents, netId)
     if stored then
         HideControlsUi()
-        DeleteEntity(entities.gasBottle)
         Core.Target.RemoveGlobalPlayer()
-        bottleFlavor = nil
-        bottleContents = nil
-        entities.gasBottle = nil
-        debug('[DEBUG] - stored gas')
+        SetTimeout(500, function()
+            DeleteEntity(entities.gasBottle)
+            bottleFlavor = nil
+            bottleContents = nil
+            entities.gasBottle = nil
+            debug('[DEBUG] - stored gas')
+        end)
     end
 end
 
