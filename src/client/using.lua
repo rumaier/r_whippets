@@ -53,8 +53,6 @@ local function storeGas()
     end
 end
 
--- TODO: sync ptfx?
-
 local function disableAllControls(duration)
     CreateThread(function()
         local start = GetGameTimer()
