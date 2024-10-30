@@ -53,6 +53,8 @@ local function storeGas()
     end
 end
 
+-- TODO: sync ptfx?
+
 local function disableAllControls(duration)
     CreateThread(function()
         local start = GetGameTimer()
@@ -73,6 +75,7 @@ local function passout()
     SetTimeout(5000, function()
         DoScreenFadeIn(500)
         Wait(1000)
+        AttachEntityToEntity(entities.gasBottle, cache.ped, GetPedBoneIndex(cache.ped, 28422), -0.0089, -0.0009, -0.0678, -4.1979, 10.7573, -13.8231, true, true, false, true, 2, true)
         Core.Natives.PlayAnim(cache.ped, 'amb@world_human_drinking@coffee@male@base', 'base', -1, 49, 0.0)
         ShowControlsUi(bottleContents)
     end)
