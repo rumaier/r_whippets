@@ -6,7 +6,7 @@ lua54 'yes'
 name 'r_whippets'
 description 'Whippets script for FiveM'
 author 'r_scripts'
-version '1.0.1'
+version '1.0.2'
 
 shared_scripts {
     '@ox_lib/init.lua',
@@ -34,7 +34,7 @@ files {
     'ui/script.js'
 }
 
-data_file 'DLC_ITYP_REQUEST' 'stream/vello_solargas.ytyp'
+data_file 'DLC_ITYP_REQUEST' 'stream/vello_gas_props_v1.ytyp'
 
 dependencies {
     'ox_lib',
