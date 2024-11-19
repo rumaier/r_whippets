@@ -59,7 +59,7 @@ local function registerUsableItems()
             if not itemData then itemData = item end
             if itemData.info then itemData.metadata = itemData.info end
             if not itemData.metadata or not itemData.metadata.contents then debug('[DEBUG] - no metadata found') return end
-            Core.Inventory.RemoveItem(src, Flavors[flavor].bottleItem, 1, itemData.metadata)
+            Core.Inventory.RemoveItem(src, itemData.name, 1, itemData.metadata)
             TriggerClientEvent('r_whippets:holdGas', src, flavor, itemData.metadata.contents)
         end)
     end
