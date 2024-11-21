@@ -34,7 +34,7 @@ files {
     'ui/script.js'
 }
 
-data_file 'DLC_ITYP_REQUEST' 'stream/vello_solargas.ytyp'
+data_file 'DLC_ITYP_REQUEST' 'stream/vello_gas_props_v1.ytyp'
 
 dependencies {
     'ox_lib',

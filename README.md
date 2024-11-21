@@ -12,7 +12,7 @@
 - 🤝️ Share canisters with friends so they can kill brain cells too.
 
 ## Prop Used
-[Vello Mods - Solar Gas Props](https://github.com/Vello-Mods/vello_solargas)
+[Vello Mods - Solar Gas Props](https://github.com/Vello-Mods/vello_gas)
 
 ## Dependencies
 

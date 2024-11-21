@@ -1,83 +1,237 @@
 -- r_whippets
-	['solargas_banana'] = {
-		label = 'Solar Gas Banana',
+	['vello_gas_apple'] = {
+		label = 'vello gas apple',
 		weight = 800,
 		stack = false,
 		close = true,
 	},
 	
-	['solargas_banana_box'] = {
-		label = 'Solar Gas Banana Box',
+	['vello_gas_banana'] = {
+		label = 'vello gas banana',
 		weight = 850,
 		stack = false,
 		close = true,
 	},
 	
-	['solargas_cottoncandy'] = {
-		label = 'Solar Gas Cotton Candy',
+	['vello_gas_blueberry'] = {
+		label = 'vello gas blueberry',
 		weight = 800,
 		stack = true,
 		close = true,
 	},
 	
-	['solargas_cottoncandy_box'] = {
-		label = 'Solar Gas Cotton Candy Box',
+	['vello_gas_bubblegum'] = {
+		label = 'vello gas bubblegum',
 		weight = 850,
 		stack = true,
 		close = true,
 	},
 	
-	['solargas_grape'] = {
-		label = 'Solar Gas Grape',
+	['vello_gas_chocolate'] = {
+		label = 'vello gas chocolate',
 		weight = 800,
 		stack = false,
 		close = true,
 	},
 	
-	['solargas_grape_box'] = {
-		label = 'Solar Gas Grape Box',
+	['vello_gas_chocolate_brownie'] = {
+		label = 'vello gas chocolate brownie',
 		weight = 850,
 		stack = false,
 		close = true,
 	},
 	
-	['solargas_orange'] = {
-		label = 'Solar Gas Orange',
+	['vello_gas_cookie_cream'] = {
+		label = 'vello gas cookie cream',
 		weight = 800,
 		stack = false,
 		close = true,
 	},
 	
-	['solargas_orange_box'] = {
-		label = 'Solar Gas Orange Box',
+	['vello_gas_cotton_candy'] = {
+		label = 'vello gas cotton candy',
 		weight = 850,
 		stack = false,
 		close = true,
 	},
 	
-	['solargas_strawberry'] = {
-		label = 'Solar Gas Strawberry',
+	['vello_gas_mango'] = {
+		label = 'vello gas mango',
 		weight = 800,
 		stack = false,
 		close = true,
 	},
 	
-	['solargas_strawberry_box'] = {
-		label = 'Solar Gas Strawberry Box',
+	['vello_gas_mixed_berries'] = {
+		label = 'vello gas mixed berries',
+		weight = 850,
+		stack = false,
+		close = true,
+	},
+
+	['vello_gas_oringe'] = {
+		label = 'vello gas oringe',
 		weight = 850,
 		stack = false,
 		close = true,
 	},
 	
-	['solargas_watermelon'] = {
-		label = 'Solar Gas Watermelon',
+	['vello_gas_peppermint'] = {
+		label = 'vello gas peppermint',
 		weight = 800,
 		stack = false,
 		close = true,
 	},
 	
-	['solargas_watermelon_box'] = {
-		label = 'Solar Gas Watermelon Box',
+	['vello_gas_pineapple'] = {
+		label = 'vello gas pineapple',
+		weight = 850,
+		stack = false,
+		close = true,
+	},
+
+	['vello_gas_strawberry'] = {
+		label = 'vello gas strawberry',
+		weight = 850,
+		stack = false,
+		close = true,
+	},
+
+	['vello_gas_strawberry_cheesecake'] = {
+		label = 'vello gas strawberry cheesecake',
+		weight = 850,
+		stack = false,
+		close = true,
+	},
+
+	['vello_gas_vanilla'] = {
+		label = 'vello gas vanilla',
+		weight = 850,
+		stack = false,
+		close = true,
+	},
+
+	['vello_gas_watermelon'] = {
+		label = 'vello gas watermelon',
+		weight = 850,
+		stack = false,
+		close = true,
+	},
+--======================================================================--
+	['vello_gas_box_apple'] = {
+		label = 'vello gas box apple',
+		weight = 850,
+		stack = false,
+		close = true,
+	},
+
+	['vello_gas_box_banana'] = {
+		label = 'vello gas box banana',
+		weight = 850,
+		stack = false,
+		close = true,
+	},
+
+	['vello_gas_box_blueberrys'] = {
+		label = 'vello gas box blueberrys',
+		weight = 850,
+		stack = false,
+		close = true,
+	},
+
+	['vello_gas_box_bubblegum'] = {
+		label = 'vello gas box bubblegum',
+		weight = 850,
+		stack = false,
+		close = true,
+	},
+
+	['vello_gas_box_chocolate'] = {
+		label = 'vello gas box chocolate',
+		weight = 850,
+		stack = false,
+		close = true,
+	},
+
+	['vello_gas_box_chocolate_brownie'] = {
+		label = 'vello gas box chocolate brownie',
+		weight = 850,
+		stack = false,
+		close = true,
+	},
+
+	['vello_gas_box_cookie_cream'] = {
+		label = 'vello gas box cookie cream',
+		weight = 850,
+		stack = false,
+		close = true,
+	},
+
+	['vello_gas_box_cotton_candy'] = {
+		label = 'vello gas box cotton candy',
+		weight = 850,
+		stack = false,
+		close = true,
+	},
+
+	['vello_gas_box_mango'] = {
+		label = 'vello gas box mango',
+		weight = 850,
+		stack = false,
+		close = true,
+	},
+
+	['vello_gas_box_mixed_berries'] = {
+		label = 'vello gas box mixed berries',
+		weight = 850,
+		stack = false,
+		close = true,
+	},
+
+	['vello_gas_box_oringe'] = {
+		label = 'vello gas box oringe',
+		weight = 850,
+		stack = false,
+		close = true,
+	},
+
+	['vello_gas_box_peppermint'] = {
+		label = 'vello gas box peppermint',
+		weight = 850,
+		stack = false,
+		close = true,
+	},
+
+	['vello_gas_box_pineapple'] = {
+		label = 'vello gas box pineapple',
+		weight = 850,
+		stack = false,
+		close = true,
+	},
+
+	['vello_gas_box_strawberry'] = {
+		label = 'vello gas box strawberry',
+		weight = 850,
+		stack = false,
+		close = true,
+	},
+
+	['vello_gas_box_strawberry_cheesecake'] = {
+		label = 'vello gas box strawberry cheesecake',
+		weight = 850,
+		stack = false,
+		close = true,
+	},
+
+	['vello_gas_box_vanilla'] = {
+		label = 'vello gas box vanilla',
+		weight = 850,
+		stack = false,
+		close = true,
+	},
+
+	['vello_gas_box_watermelon'] = {
+		label = 'vello gas box watermelon',
 		weight = 850,
 		stack = false,
 		close = true,
