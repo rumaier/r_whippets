@@ -16,7 +16,7 @@
 
 ## Documentation
 
-[Gitbook](https://r-scripts-1.gitbook.io/r_scripts-docs./)
+[Gitbook](https://r-scripts-1.gitbook.io/r_scripts-docs./free-resources/r_whippets)
 
 ## Support
 
