@@ -16,11 +16,11 @@
 
 ## Documentation
 
-[Gitbook](https://r-scripts-1.gitbook.io/r_scripts-docs./).
+[Gitbook](https://r-scripts-1.gitbook.io/r_scripts-docs./)
 
 ## Support
 
-[Discord](https://discord.gg/r-scripts).
+[Discord](https://discord.gg/r-scripts)
 
 ## License
 
