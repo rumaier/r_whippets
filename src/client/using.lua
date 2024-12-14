@@ -165,6 +165,7 @@ local function startListeningForInput()
                 useGas()
             elseif IsControlJustPressed(0, 73) then
                 storeGas()
+                -- TODO: fix, this is the reason players can dupe gas items
                 SetTimeout(500, function()
                     listening = false
                 end)
