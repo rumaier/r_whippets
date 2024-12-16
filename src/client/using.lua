@@ -2,7 +2,6 @@ local entities = {}
 local bottleFlavor = nil
 local bottleContents = nil
 local effectStrength = 0
-local isStoringGas = false  -- Flag to prevent multiple storeGas calls
 
 -- SHARING WHIPPETS
 
@@ -18,10 +17,7 @@ end
 local function handoverGas()
     local duration = GetAnimDuration('mp_common', 'givetake1_a') * 1000
     local shared = lib.callback.await('r_whippets:shareGasWithNearestPlayer', false, bottleFlavor, bottleContents)
-    if not shared then 
-        debug('[DEBUG] - sharing failed') 
-        return 
-    end
+    if not shared then debug('[DEBUG] - sharing failed') return end
     StopAnimTask(cache.ped, 'amb@world_human_drinking@coffee@male@base', 'base', 1.0)
     Core.Natives.PlayAnim(cache.ped, 'mp_common', 'givetake1_a', duration, 16, 0.0)
     SetTimeout(duration * 0.5, function()
@@ -42,28 +38,19 @@ end)
 -- USE WHIPPETS
 
 local function storeGas()
-    if isStoringGas then
-        debug('[DEBUG] - storeGas already in progress')
-        return  -- Prevent re-entrant calls
-    end
-
-    isStoringGas = true  -- Lock the function
-
     local netId = NetworkGetNetworkIdFromEntity(entities.gasBottle)
     Core.Natives.PlayAnim(cache.ped, 'melee@holster', 'holster', 1000, 49, 0.0)
     local stored = lib.callback.await('r_whippets:storeGas', false, bottleFlavor, bottleContents, netId)
     if stored then
         HideControlsUi()
-        DeleteEntity(entities.gasBottle)
-        bottleFlavor = nil
-        bottleContents = nil
-        entities.gasBottle = nil
-        debug('[DEBUG] - stored gas')
-    else
-        debug('[DEBUG] - failed to store gas')
+        SetTimeout(500, function()
+            DeleteEntity(entities.gasBottle)
+            bottleFlavor = nil
+            bottleContents = nil
+            entities.gasBottle = nil
+            debug('[DEBUG] - stored gas')
+        end)
     end
-
-    isStoringGas = false  -- Unlock the function
 end
 
 local function disableAllControls(duration)
@@ -100,7 +87,7 @@ local function decreaseEffectStrength()
     for i = oldStrength, newStrength, -1 do
         SetTimecycleModifier('BlackOut')
         effectStrength = math.max((i * 0.01) * 1.0, 0.0)
-        SetTimecycleModifierStrength(effectStrength)
+        SetTimecycleModifierStrength(effectStrength);
         Wait(0)
     end
     if effectStrength <= 0.0 then
@@ -116,7 +103,7 @@ local function increaseEffectStrength(duration)
     for i = oldStrength, newStrength do
         SetTimecycleModifier('BlackOut')
         effectStrength = (i * 0.01) * 1.0
-        SetTimecycleModifierStrength(effectStrength)
+        SetTimecycleModifierStrength(effectStrength);
         Wait(0)
     end
     if effectStrength >= 1.0 then
@@ -174,17 +161,20 @@ local function startListeningForInput()
             DisableControlAction(0, 24, true)
             DisableControlAction(0, 25, true)
             DisableControlAction(0, 140, true)
+            
             if IsControlJustPressed(0, 38) then
                 useGas()
             elseif IsControlJustPressed(0, 73) then
-                listening = false  -- Stop listening immediately
+                listening = false  -- Immediately stop listening
                 storeGas()
-                -- No SetTimeout here to prevent duplication
+                -- Removed the SetTimeout to prevent duplication
             end
             Wait(0)
         end
     end)
 end
+
+
 
 local function holdGas(flavor, contents)
     bottleFlavor = flavor
