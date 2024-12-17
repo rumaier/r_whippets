@@ -164,11 +164,8 @@ local function startListeningForInput()
             if IsControlJustPressed(0, 38) then
                 useGas()
             elseif IsControlJustPressed(0, 73) then
+                listening = false
                 storeGas()
-                -- TODO: fix, this is the reason players can dupe gas items
-                SetTimeout(500, function()
-                    listening = false
-                end)
             end
             Wait(0)
         end
@@ -180,8 +177,7 @@ local function holdGas(flavor, contents)
     bottleContents = contents
     local prop = Flavors[flavor].bottleProp
     entities.gasBottle = Core.Natives.CreateProp(prop, GetEntityCoords(cache.ped), GetEntityHeading(cache.ped), true)
-    AttachEntityToEntity(entities.gasBottle, cache.ped, GetPedBoneIndex(cache.ped, 28422), -0.0089, -0.0009, -0.0678,
-        -4.1979, 10.7573, -13.8231, true, true, false, true, 2, true)
+    AttachEntityToEntity(entities.gasBottle, cache.ped, GetPedBoneIndex(cache.ped, 28422), -0.0089, -0.0009, -0.0678, -4.1979, 10.7573, -13.8231, true, true, false, true, 2, true)
     Core.Natives.PlayAnim(cache.ped, 'amb@world_human_drinking@coffee@male@base', 'base', -1, 49, 0.0)
     Core.Target.AddGlobalPlayer({
         {
