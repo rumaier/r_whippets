@@ -26,7 +26,7 @@ lib.callback.register('r_whippets:purchaseGas', function(src, flavor, location)
         return false 
     end
     local added = Core.Inventory.AddItem(src, Flavors[flavor].boxItem, 1)
-    if not added then debug('[DEBUG] - Error adding item', src, Flavors[flavor].boxItem) return false end
+    if not added then _debug('[DEBUG] - Error adding item', src, Flavors[flavor].boxItem) return false end
     Core.Framework.RemoveAccountBalance(src, 'money', Cfg.Options.WhippetShop.Price)
     return true
 end)
@@ -58,7 +58,7 @@ local function registerUsableItems()
         Core.Framework.RegisterUsableItem(data.bottleItem, function(src, item, itemData)
             if not itemData then itemData = item end
             if itemData.info then itemData.metadata = itemData.info end
-            if not itemData.metadata or not itemData.metadata.contents then debug('[DEBUG] - no metadata found') return end
+            if not itemData.metadata or not itemData.metadata.contents then _debug('[DEBUG] - no metadata found') return end
             Core.Inventory.RemoveItem(src, itemData.name, 1, itemData.metadata)
             TriggerClientEvent('r_whippets:holdGas', src, flavor, itemData.metadata.contents)
         end)

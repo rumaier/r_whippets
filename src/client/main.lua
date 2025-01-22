@@ -44,7 +44,7 @@ local function buyGas(flavor, location)
     local alert = lib.alertDialog({ header = _L('buy_gas'), content = _L('buy_gas_confirm', flavor, Cfg.Options.WhippetShop.Price), centered = true, cancel = true })
     if alert == 'cancel' then return end
     local purchased = lib.callback.await('r_whippets:purchaseGas', false, flavor, location)
-    if not purchased then lib.showContext('whippet_shop') debug('[DEBUG] - Purchase failed', flavor) return end
+    if not purchased then lib.showContext('whippet_shop') _debug('[DEBUG] - Purchase failed', flavor) return end
     Core.Framework.Notify(_L('purchased_gas', string.format('%s gas', flavor), Cfg.Options.WhippetShop.Price), 'success')
 end
 
@@ -52,7 +52,7 @@ local function openWhippetShop(location)
     local options = {}
     for flavor, data in pairs(Flavors) do
         local itemInfo = Core.Inventory.GetItemInfo(data.bottleItem)
-        if not itemInfo then debug('[ERROR] - Item info not found', data.bottleItem) return end
+        if not itemInfo then _debug('[ERROR] - Item info not found', data.bottleItem) return end
         table.insert(options, {
             title = _L('shop_item', itemInfo.label, Cfg.Options.WhippetShop.Price),
             icon = Cfg.Server.InventoryImagePath and string.format('%s/%s.png', Cfg.Server.InventoryImagePath, data.bottleItem) or 'rocket',
@@ -94,7 +94,7 @@ function SetupWhippetShop()
                     end
                 }
             })
-            debug('[DEBUG] - Whippet shop ped spawned', entities.shopPed)
+            _debug('[DEBUG] - Whippet shop ped spawned', entities.shopPed)
         end,
         onExit = function()
             Core.Target.RemoveLocalEntity(entities.shopPed)
@@ -102,7 +102,7 @@ function SetupWhippetShop()
             DeleteEntity(entities.shopPed)
             entities.shopGas = nil
             entities.shopPed = nil
-            debug('[DEBUG] - Whippet shop ped removed', entities.shopPed)
+            _debug('[DEBUG] - Whippet shop ped removed', entities.shopPed)
         end,
     })
     end

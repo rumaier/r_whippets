@@ -10,14 +10,14 @@ local function takeGas(flavor, contents)
     Core.Natives.PlayAnim(cache.ped, 'mp_common', 'givetake1_a', duration, 16, 0.0)
     SetTimeout(duration * 0.5, function()
         TriggerEvent('r_whippets:holdGas', flavor, contents)
-        debug('[DEBUG] - took gas')
+        _debug('[DEBUG] - took gas')
     end)
 end
 
 local function handoverGas()
     local duration = GetAnimDuration('mp_common', 'givetake1_a') * 1000
     local shared = lib.callback.await('r_whippets:shareGasWithNearestPlayer', false, bottleFlavor, bottleContents)
-    if not shared then debug('[DEBUG] - sharing failed') return end
+    if not shared then _debug('[DEBUG] - sharing failed') return end
     StopAnimTask(cache.ped, 'amb@world_human_drinking@coffee@male@base', 'base', 1.0)
     Core.Natives.PlayAnim(cache.ped, 'mp_common', 'givetake1_a', duration, 16, 0.0)
     SetTimeout(duration * 0.5, function()
@@ -27,7 +27,7 @@ local function handoverGas()
         bottleFlavor = nil
         bottleContents = nil
         entities.gasBottle = nil
-        debug('[DEBUG] - shared gas')
+        _debug('[DEBUG] - shared gas')
     end)
 end
 
@@ -48,7 +48,7 @@ local function storeGas()
             bottleFlavor = nil
             bottleContents = nil
             entities.gasBottle = nil
-            debug('[DEBUG] - stored gas')
+            _debug('[DEBUG] - stored gas')
         end)
     end
 end
@@ -94,7 +94,7 @@ local function decreaseEffectStrength()
         SetTimecycleModifier('default')
         effectStrength = 0
     end
-    debug('[DEBUG] - decreased effect strength')
+    _debug('[DEBUG] - decreased effect strength')
 end
 
 local function increaseEffectStrength(duration)
@@ -112,7 +112,7 @@ local function increaseEffectStrength(duration)
     SetTimeout((duration * 5) * 1000, function()
         decreaseEffectStrength()
     end)
-    debug('[DEBUG] - increased effect strength')
+    _debug('[DEBUG] - increased effect strength')
 end
 
 local function useGas()
@@ -134,7 +134,7 @@ local function useGas()
                 clip = 'idle_a',
             },
         }) then
-        debug('[DEBUG] - used gas')
+        _debug('[DEBUG] - used gas')
         increaseEffectStrength(duration)
         if bottleContents <= 0 then
             Wait(1000)
@@ -195,7 +195,7 @@ local function holdGas(flavor, contents)
     })
     ShowControlsUi(contents)
     startListeningForInput()
-    debug('[DEBUG] - pulled out gas')
+    _debug('[DEBUG] - pulled out gas')
 end
 
 RegisterNetEvent('r_whippets:holdGas', function(flavor, contents)

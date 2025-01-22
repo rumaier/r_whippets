@@ -7,7 +7,7 @@ RegisterNetEvent(onPlayerLoaded, function()
     end
 end)
 
-function debug(...)
+function _debug(...)
     if Cfg.Debug then
         print(...)
     end
