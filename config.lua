@@ -5,7 +5,7 @@
 -- |_|____\_/\_/ |_| |_|_| .__/| .__/ \___|\__|___/
 --  |_____|              |_|   |_|
 --
---  Need support? Join our Discord server for help: https://discord.gg/r-scripts
+--  Need support? Join our Discord server for help: https://discord.gg/rscripts
 --
 Cfg = {
     --  ___  ___ _ ____   _____ _ __

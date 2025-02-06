@@ -16,11 +16,11 @@
 
 ## Documentation
 
-[Gitbook](https://r-scripts-1.gitbook.io/r_scripts-docs./free-resources/r_whippets)
+[Gitbook](https://rscripts.gitbook.io/r_scripts-docs./free-resources/r_whippets)
 
 ## Support
 
-[Discord](https://discord.gg/r-scripts)
+[Discord](https://discord.gg/rscripts)
 
 ## License
 
