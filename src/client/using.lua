@@ -21,7 +21,7 @@ local function handoverGas()
     StopAnimTask(cache.ped, 'amb@world_human_drinking@coffee@male@base', 'base', 1.0)
     Core.Natives.PlayAnim(cache.ped, 'mp_common', 'givetake1_a', duration, 16, 0.0)
     SetTimeout(duration * 0.5, function()
-        Core.Target.RemoveGlobalPlayer()
+        Core.Target.RemoveGlobalPlayer(_L('share_gas'))
         DeleteEntity(entities.gasBottle)
         HideControlsUi()
         bottleFlavor = nil
@@ -182,7 +182,7 @@ local function holdGas(flavor, contents)
     Core.Target.AddGlobalPlayer({
         {
             label = _L('share_gas'),
-            name = 'share_gas',
+            name = _L('share_gas'),
             icon = 'fas fa-user-astronaut',
             distance = 1.0,
             canInteract = function()
