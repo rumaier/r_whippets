@@ -6,24 +6,24 @@ lua54 'yes'
 name 'r_whippets'
 description 'Whippets script for FiveM'
 author 'r_scripts'
-version '1.0.6'
+version '1.1.0'
 
 shared_scripts {
     '@ox_lib/init.lua',
     'utils/shared.lua',
-    'src/shared/*.lua',
+    'core/shared/*.lua',
     'locales/*.lua',
     'config.lua',
 }
 
 server_scripts {
     'utils/server.lua',
-    'src/server/*.lua',
+    'core/server/*.lua',
 }
 
 client_scripts {
     'utils/client.lua',
-    'src/client/*.lua',
+    'core/client/*.lua',
 }
 
 ui_page 'nui/index.html'
