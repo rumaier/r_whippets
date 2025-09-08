@@ -12,7 +12,7 @@ end)
 
 lib.callback.register('r_whippets:openGasBox', function(flavor)
     local flavorData = Flavors[flavor]
-    if lib.progressCircle({
+    if Core.Interface.progress({
             duration = 5000,
             label = _L('opening_box'),
             position = 'bottom',
@@ -41,10 +41,10 @@ lib.callback.register('r_whippets:openGasBox', function(flavor)
 end)
 
 local function buyGas(flavor, location)
-    local alert = lib.alertDialog({ header = _L('buy_gas'), content = _L('buy_gas_confirm', flavor, Cfg.Options.WhippetShop.Price), centered = true, cancel = true })
+    local alert = Core.Interface.alertDialog({ header = _L('buy_gas'), content = _L('buy_gas_confirm', flavor, Cfg.Options.WhippetShop.Price), centered = true, cancel = true })
     if alert == 'cancel' then return end
     local purchased = lib.callback.await('r_whippets:purchaseGas', false, flavor, location)
-    if not purchased then lib.showContext('whippet_shop') _debug('[DEBUG] - Purchase failed', flavor) return end
+    if not purchased then Core.Interface.showContext('whippet_shop') _debug('[DEBUG] - Purchase failed', flavor) return end
     Core.Interface.notify(_L('notify_title'), _L('purchased_gas', string.format('%s gas', flavor), Cfg.Options.WhippetShop.Price), 'success')
 end
 
@@ -62,13 +62,13 @@ local function openWhippetShop(location)
             end
         })
     end
-    lib.registerContext({
+    Core.Interface.registerContext({
         id = 'whippet_shop',
         title = _L('whippet_shop'),
         options = options,
     })
     PlayPedAmbientSpeechNative(entities.shop, 'GENERIC_HI', 'SPEECH_PARAMS_FORCE')
-    lib.showContext('whippet_shop')
+    Core.Interface.showContext('whippet_shop')
 end
 
 function SetupWhippetShop()
