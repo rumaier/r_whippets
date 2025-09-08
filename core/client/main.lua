@@ -53,10 +53,11 @@ local function openWhippetShop(location)
     for flavor, data in pairs(Flavors) do
         local itemInfo = Core.Inventory.getItemInfo(data.bottleItem)
         if not itemInfo then _debug('[ERROR] - Item info not found', data.bottleItem) return end
+        local iconPath = Cfg.Server.InventoryImagePath
         table.insert(options, {
             title = _L('shop_item', itemInfo.label, Cfg.Options.WhippetShop.Price),
-            icon = Cfg.Server.InventoryImagePath and string.format('%s/%s.png', Cfg.Server.InventoryImagePath, data.bottleItem) or 'rocket',
-            image = Cfg.Server.InventoryImagePath and string.format('%s/%s.png', Cfg.Server.InventoryImagePath, data.boxItem) or 'rocket',
+            icon = iconPath and iconPath:format(data.bottleItem) or 'rocket',
+            image = iconPath and iconPath:format(data.boxItem) or nil,
             onSelect = function()
                 buyGas(flavor, location)
             end
