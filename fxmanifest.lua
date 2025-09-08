@@ -26,12 +26,12 @@ client_scripts {
     'src/client/*.lua',
 }
 
-ui_page 'ui/index.html'
+ui_page 'nui/index.html'
 
 files {
-    'ui/index.html',
-    'ui/styles.css',
-    'ui/script.js'
+    'nui/index.html',
+    'nui/styles.css',
+    'nui/script.js'
 }
 
 data_file 'DLC_ITYP_REQUEST' 'stream/vello_solargas.ytyp'
