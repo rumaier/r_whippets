@@ -7,6 +7,8 @@ RegisterNetEvent(onPlayerLoaded, function()
     end
 end)
 
+Cfg.Server.InventoryImagePath = Core.Inventory.IconPath or false
+
 function _debug(...)
     if Cfg.Debug then
         print(...)

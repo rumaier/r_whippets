@@ -14,7 +14,7 @@ Cfg = {
     -- |___/\___|_|    \_/ \___|_|
     Server = {
         Language = 'en',                                      -- Resource language ('en': English, 'es': Spanish, 'fr': French, 'de': German, 'pt': Portuguese, 'zh': Chinese)
-        InventoryImagePath = 'nui://ox_inventory/web/images', -- Determines the image path for the inventory. Set to false to use default icons.
+        InventoryImagePath = false, -- DONT BOTHER CHANGING, IT WILL SET IT AUTOMATICALLY NOW!!
         VersionCheck = true,                                  -- Version check (true: enabled, false: disabled)
     },
     --              _   _

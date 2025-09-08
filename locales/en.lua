@@ -34,5 +34,5 @@ Language['en'] = { -- English
     no_bridge = '^1Bridge not detected, please ensure it is running.^0',
     bridge_detected = '^2Bridge detected and loaded.^0',
     cheater = 'Kicked for cheating.',
-    update = 'Please update %s to the latest version from Github',
+    debug_enabled = '^1Debug mode is ON! Do NOT run this in production!^0',
 }
