@@ -35,5 +35,5 @@ Language['zh'] = { -- Chinese
     bridge_detected = '^2检测到并加载桥接。^0',
     cheater = '因作弊被踢。',
     update = '请将 %s 更新到 Github 上的最新版本',
-
+    debug_enabled = '^1调试模式已开启！请勿在生产环境运行！^0',
 }

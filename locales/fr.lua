@@ -35,5 +35,5 @@ Language['fr'] = { -- French
     bridge_detected = '^2Pont détecté et chargé.^0',
     cheater = 'Expulsé pour tricherie.',
     update = 'Veuillez mettre à jour %s vers la dernière version depuis Github',
-
+    debug_enabled = '^1Le mode debug est ACTIVÉ ! Ne pas utiliser en production !^0',
 }

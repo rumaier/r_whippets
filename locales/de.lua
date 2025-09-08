@@ -35,6 +35,5 @@ Language['de'] = { -- German
     bridge_detected = '^2Bridge erkannt und geladen.^0',
     cheater = 'Wegen Betrugs gekickt.',
     update = 'Bitte aktualisiere %s auf die neueste Version von Github',
-
-
+    debug_enabled = '^1Debug-Modus ist AKTIVIERT! Nicht in der Produktion ausführen!^0',
 }
