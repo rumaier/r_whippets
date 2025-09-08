@@ -7,7 +7,7 @@ RegisterNetEvent("r_whippets:ptfxEvent", function(netId)
     local distance = #(GetEntityCoords(cache.ped) - GetEntityCoords(entity))
     if not DoesEntityExist(entity) or distance > 50 then return end
     local ptFxCoords = GetPedBoneCoords(entity, 47495, 0.0, 0.0, 0.0)
-    Core.Natives.PlayPtFxLooped(ptFxCoords, 'core', 'ent_amb_smoke_gaswork', 0.1, 500)
+    Core.Natives.triggerLoopedParticleFx(ptFxCoords, 'core', 'ent_amb_smoke_gaswork', 0.1, 500)
 end)
 
 lib.callback.register('r_whippets:openGasBox', function(flavor)
@@ -45,13 +45,13 @@ local function buyGas(flavor, location)
     if alert == 'cancel' then return end
     local purchased = lib.callback.await('r_whippets:purchaseGas', false, flavor, location)
     if not purchased then lib.showContext('whippet_shop') _debug('[DEBUG] - Purchase failed', flavor) return end
-    Core.Framework.Notify(_L('purchased_gas', string.format('%s gas', flavor), Cfg.Options.WhippetShop.Price), 'success')
+    Core.Interface.notify(_L('notify_title'), _L('purchased_gas', string.format('%s gas', flavor), Cfg.Options.WhippetShop.Price), 'success')
 end
 
 local function openWhippetShop(location)
     local options = {}
     for flavor, data in pairs(Flavors) do
-        local itemInfo = Core.Inventory.GetItemInfo(data.bottleItem)
+        local itemInfo = Core.Inventory.getItemInfo(data.bottleItem)
         if not itemInfo then _debug('[ERROR] - Item info not found', data.bottleItem) return end
         table.insert(options, {
             title = _L('shop_item', itemInfo.label, Cfg.Options.WhippetShop.Price),
@@ -74,16 +74,16 @@ end
 function SetupWhippetShop()
     local shop = Cfg.Options.WhippetShop
     for _, coords in pairs(shop.Locations) do
-        table.insert(blips, Core.Natives.CreateBlip(coords.xyz, shop.Blip.Sprite, shop.Blip.Color, shop.Blip.Scale, shop.Blip.Label, true))
+        table.insert(blips, Core.Natives.createBlip(coords.xyz, shop.Blip.Sprite, shop.Blip.Color, shop.Blip.Scale, shop.Blip.Label))
         lib.points.new({ coords = coords.xyz, distance = 150,
         onEnter = function()
             if DoesEntityExist(entities.shopPed) then return end
-            entities.shopPed = Core.Natives.CreateNpc(shop.PedModel, coords.xyz, coords.w, false)
-            Core.Natives.SetEntityProperties(entities.shopPed, true, true, true)
-            entities.shopGas = Core.Natives.CreateProp(Flavors['banana'].bottleProp, GetEntityCoords(entities.shopPed), GetEntityHeading(entities.shopPed), false)
+            entities.shopPed = Core.Natives.createPed(shop.PedModel, coords.xyz, coords.w, false)
+            Core.Natives.setEntityProperties(entities.shopPed, true, true, true)
+            entities.shopGas = Core.Natives.createObject(Flavors['banana'].bottleProp, GetEntityCoords(entities.shopPed), GetEntityHeading(entities.shopPed), false)
             AttachEntityToEntity(entities.shopGas, entities.shopPed, GetPedBoneIndex(entities.shopPed, 28422), -0.0089, -0.0009, -0.0678, -4.1979, 10.7573, -13.8231, true, true, false, true, 2, true)
-            Core.Natives.PlayAnim(entities.shopPed, 'amb@world_human_drinking@coffee@male@base', 'base', -1, 49, 0.0)
-            Core.Target.AddLocalEntity(entities.shopPed, {
+            Core.Natives.playAnimation(entities.shopPed, 'amb@world_human_drinking@coffee@male@base', 'base', -1, 49, 0.0)
+            Core.Target.addLocalEntity(entities.shopPed, {
                 {
                     label = _L('whippet_shop'),
                     name = 'whippet_shop',
@@ -97,7 +97,7 @@ function SetupWhippetShop()
             _debug('[DEBUG] - Whippet shop ped spawned', entities.shopPed)
         end,
         onExit = function()
-            Core.Target.RemoveLocalEntity(entities.shopPed)
+            Core.Target.removeLocalEntity(entities.shopPed)
             DeleteEntity(entities.shopGas)
             DeleteEntity(entities.shopPed)
             entities.shopGas = nil
