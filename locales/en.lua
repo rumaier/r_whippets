@@ -6,6 +6,7 @@ Language['en'] = { -- English
     share_gas = 'Share Gas',
 
     -- Notifications
+    notify_title = 'Whippets',
     insufficient_funds = 'You do not have enough money to purchase gas.',
     purchased_gas = 'You purchased %s for $%s.',
     empty_bottle = 'You threw the empty bottle away.',

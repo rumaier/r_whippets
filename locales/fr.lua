@@ -6,6 +6,7 @@ Language['fr'] = { -- French
     share_gas = 'Partager le Gaz',
 
     -- Notifications
+    notify_title = 'Notification',     -- Added notify_title
     insufficient_funds = 'Vous n’avez pas assez d’argent pour acheter du gaz.',
     purchased_gas = 'Vous avez acheté %s pour $%s.',
     empty_bottle = 'Vous avez jeté la bouteille vide.',

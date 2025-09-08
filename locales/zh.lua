@@ -6,6 +6,7 @@ Language['zh'] = { -- Chinese
     share_gas = '分享汽油',
 
     -- 通知
+    notify_title = '通知',
     insufficient_funds = '您没有足够的钱购买汽油。',
     purchased_gas = '您以 $%s 购买了 %s。',
     empty_bottle = '您丢弃了空瓶子。',

@@ -6,6 +6,7 @@ Language['de'] = { -- German
     share_gas = 'Gas teilen',
 
     -- Benachrichtigungen
+    notify_title = 'Hinweis',
     insufficient_funds = 'Du hast nicht genug Geld, um Gas zu kaufen.',
     purchased_gas = 'Du hast %s für $%s gekauft.',
     empty_bottle = 'Du hast die leere Flasche weggeworfen.',
@@ -34,5 +35,6 @@ Language['de'] = { -- German
     bridge_detected = '^2Bridge erkannt und geladen.^0',
     cheater = 'Wegen Betrugs gekickt.',
     update = 'Bitte aktualisiere %s auf die neueste Version von Github',
+
 
 }
