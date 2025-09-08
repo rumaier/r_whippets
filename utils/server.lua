@@ -56,6 +56,7 @@ AddEventHandler('onResourceStart', function(resourceName)
         else
             print(_L('bridge_detected'))
         end
+        if Cfg.Debug then print(_L('debug_enabled')) end
         print('------------------------------')
         checkResourceVersion()
     end
