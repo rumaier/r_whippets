@@ -13,7 +13,7 @@ shared_scripts {
     'utils/shared.lua',
     'core/shared/*.lua',
     'locales/*.lua',
-    'config.lua',
+    'configs/*.lua'
 }
 
 server_scripts {
