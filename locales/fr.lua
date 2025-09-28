@@ -6,6 +6,7 @@ Language['fr'] = { -- French
     share_gas = 'Partager le Gaz',
 
     -- Notifications
+    notify_title = 'Notification',     -- Added notify_title
     insufficient_funds = 'Vous n’avez pas assez d’argent pour acheter du gaz.',
     purchased_gas = 'Vous avez acheté %s pour $%s.',
     empty_bottle = 'Vous avez jeté la bouteille vide.',
@@ -34,5 +35,5 @@ Language['fr'] = { -- French
     bridge_detected = '^2Pont détecté et chargé.^0',
     cheater = 'Expulsé pour tricherie.',
     update = 'Veuillez mettre à jour %s vers la dernière version depuis Github',
-
+    debug_enabled = '^1Le mode debug est ACTIVÉ ! Ne pas utiliser en production !^0',
 }

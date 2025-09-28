@@ -3,7 +3,7 @@ Core = exports['r_bridge']:returnCoreObject()
 function SendWebhook(src, event, ...)
     if not Cfg.Webhook.Enabled then return end
     local name = '' if src > 0 then name = GetPlayerName(src) end
-    local identifier = Core.Framework.GetPlayerIdentifier(src) or ''
+    local identifier = Core.Framework.getPlayerIdentifier(src) or ''
     PerformHttpRequest(Cfg.Webhook.Url, function(err, text, headers)
     end, 'POST', json.encode({
         username = 'Resource Logs',
@@ -56,6 +56,7 @@ AddEventHandler('onResourceStart', function(resourceName)
         else
             print(_L('bridge_detected'))
         end
+        if Cfg.Debug then print(_L('debug_enabled')) end
         print('------------------------------')
         checkResourceVersion()
     end

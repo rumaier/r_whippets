@@ -20,14 +20,14 @@ lib.callback.register('r_whippets:purchaseGas', function(src, flavor, location)
     local player = GetPlayerPed(src)
     local distance = #(GetEntityCoords(player) - location.xyz)
     if distance > 5 then DropPlayer(src, _L('cheater')) return false end
-    local balance = Core.Framework.GetAccountBalance(src, 'money')
+    local balance = Core.Framework.getAccountBalance(src, 'money')
     if balance < Cfg.Options.WhippetShop.Price then 
-        Core.Framework.Notify(src, _L('insufficient_funds'), 'error')
+        TriggerClientEvent('r_bridge:notify', src, _L('notify_title'), _L('insufficient_funds'), 'error')
         return false 
     end
-    local added = Core.Inventory.AddItem(src, Flavors[flavor].boxItem, 1)
+    local added = Core.Inventory.addItem(src, Flavors[flavor].boxItem, 1)
     if not added then _debug('[DEBUG] - Error adding item', src, Flavors[flavor].boxItem) return false end
-    Core.Framework.RemoveAccountBalance(src, 'money', Cfg.Options.WhippetShop.Price)
+    Core.Framework.removeAccountBalance(src, 'money', Cfg.Options.WhippetShop.Price)
     return true
 end)
 
@@ -36,30 +36,30 @@ lib.callback.register('r_whippets:storeGas', function(src, flavor, contents, bot
     bottleEntity = NetworkGetEntityFromNetworkId(bottleEntity)
     if not DoesEntityExist(bottleEntity) or GetEntityAttachedTo(bottleEntity) ~= player then return false end
     local durability = math.floor((100/800) * contents)
-    local added = Core.Inventory.AddItem(src, Flavors[flavor].bottleItem, 1, { contents = contents, durability = durability })
+    local added = Core.Inventory.addItem(src, Flavors[flavor].bottleItem, 1, { contents = contents, durability = durability })
     if not added then return false end
     return true
 end)
 
 local function openGasBox(src, flavor)
     local flavorData = Flavors[flavor]
-    Core.Inventory.RemoveItem(src, flavorData.boxItem, 1)
+    Core.Inventory.removeItem(src, flavorData.boxItem, 1)
     local opened = lib.callback.await('r_whippets:openGasBox', src, flavor)
     if not opened then
-        Core.Inventory.AddItem(src, flavorData.boxItem, 1)
+        Core.Inventory.addItem(src, flavorData.boxItem, 1)
     end
 end
 
 local function registerUsableItems()
     for flavor, data in pairs(Flavors) do
-        Core.Framework.RegisterUsableItem(data.boxItem, function(src, item, itemData)
+        Core.Framework.registerUsableItem(data.boxItem, function(src, item, itemData)
             openGasBox(src, flavor)
         end)
-        Core.Framework.RegisterUsableItem(data.bottleItem, function(src, item, itemData)
+        Core.Framework.registerUsableItem(data.bottleItem, function(src, item, itemData)
             if not itemData then itemData = item end
             if itemData.info then itemData.metadata = itemData.info end
             if not itemData.metadata or not itemData.metadata.contents then _debug('[DEBUG] - no metadata found') return end
-            Core.Inventory.RemoveItem(src, itemData.name, 1, itemData.metadata)
+            Core.Inventory.removeItem(src, itemData.name, 1, itemData.metadata)
             TriggerClientEvent('r_whippets:holdGas', src, flavor, itemData.metadata.contents)
         end)
     end

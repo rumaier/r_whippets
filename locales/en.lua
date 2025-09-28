@@ -6,6 +6,7 @@ Language['en'] = { -- English
     share_gas = 'Share Gas',
 
     -- Notifications
+    notify_title = 'Whippets',
     insufficient_funds = 'You do not have enough money to purchase gas.',
     purchased_gas = 'You purchased %s for $%s.',
     empty_bottle = 'You threw the empty bottle away.',
@@ -33,5 +34,5 @@ Language['en'] = { -- English
     no_bridge = '^1Bridge not detected, please ensure it is running.^0',
     bridge_detected = '^2Bridge detected and loaded.^0',
     cheater = 'Kicked for cheating.',
-    update = 'Please update %s to the latest version from Github',
+    debug_enabled = '^1Debug mode is ON! Do NOT run this in production!^0',
 }

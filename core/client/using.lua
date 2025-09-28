@@ -7,7 +7,7 @@ local effectStrength = 0
 
 local function takeGas(flavor, contents)
     local duration = GetAnimDuration('mp_common', 'givetake1_a') * 1000
-    Core.Natives.PlayAnim(cache.ped, 'mp_common', 'givetake1_a', duration, 16, 0.0)
+    Core.Natives.playAnimation(cache.ped, 'mp_common', 'givetake1_a', duration, 16, 0.0)
     SetTimeout(duration * 0.5, function()
         TriggerEvent('r_whippets:holdGas', flavor, contents)
         _debug('[DEBUG] - took gas')
@@ -19,9 +19,9 @@ local function handoverGas()
     local shared = lib.callback.await('r_whippets:shareGasWithNearestPlayer', false, bottleFlavor, bottleContents)
     if not shared then _debug('[DEBUG] - sharing failed') return end
     StopAnimTask(cache.ped, 'amb@world_human_drinking@coffee@male@base', 'base', 1.0)
-    Core.Natives.PlayAnim(cache.ped, 'mp_common', 'givetake1_a', duration, 16, 0.0)
+    Core.Natives.playAnimation(cache.ped, 'mp_common', 'givetake1_a', duration, 16, 0.0)
     SetTimeout(duration * 0.5, function()
-        Core.Target.RemoveGlobalPlayer(_L('share_gas'))
+        Core.Target.removeGlobalPlayerOptions(_L('share_gas'))
         DeleteEntity(entities.gasBottle)
         HideControlsUi()
         bottleFlavor = nil
@@ -39,7 +39,7 @@ end)
 
 local function storeGas()
     local netId = NetworkGetNetworkIdFromEntity(entities.gasBottle)
-    Core.Natives.PlayAnim(cache.ped, 'melee@holster', 'holster', 1000, 49, 0.0)
+    Core.Natives.playAnimation(cache.ped, 'melee@holster', 'holster', 1000, 49, 0.0)
     local stored = lib.callback.await('r_whippets:storeGas', false, bottleFlavor, bottleContents, netId)
     if stored then
         HideControlsUi()
@@ -69,13 +69,13 @@ local function passout()
     AttachEntityToEntity(entities.gasBottle, cache.ped, GetPedBoneIndex(cache.ped, 28422), 0.0617, 0.0136, -0.0500, -52.8818, -13.3495, -13.1849, true, true, false, true, 2, true)
     SetPedToRagdoll(cache.ped, 5000, 5000, 0, 0, 0, 0)
     DoScreenFadeOut(750)
-    Core.Framework.Notify(_L('passout'), 'info')
+    Core.Interface.notify(_L('notify_title'), _L('passout'), 'info')
     SetTimeout(5000, function()
         DoScreenFadeIn(500)
         Wait(1000)
         if bottleContents and bottleContents > 0 then
             AttachEntityToEntity(entities.gasBottle, cache.ped, GetPedBoneIndex(cache.ped, 28422), -0.0089, -0.0009, -0.0678, -4.1979, 10.7573, -13.8231, true, true, false, true, 2, true)
-            Core.Natives.PlayAnim(cache.ped, 'amb@world_human_drinking@coffee@male@base', 'base', -1, 49, 0.0)
+            Core.Natives.playAnimation(cache.ped, 'amb@world_human_drinking@coffee@male@base', 'base', -1, 49, 0.0)
             ShowControlsUi(bottleContents)
         end
     end)
@@ -140,14 +140,14 @@ local function useGas()
             Wait(1000)
             bottleFlavor = nil
             bottleContents = nil
-            Core.Framework.Notify(_L('empty_bottle'), 'info')
+            Core.Interface.notify(_L('notify_title'), _L('empty_bottle'), 'info')
             DeleteEntity(entities.gasBottle)
             StopAnimTask(cache.ped, 'amb@world_human_drinking@coffee@male@base', 'base', 1.0)
             HideControlsUi()
         else
             local netId = NetworkGetNetworkIdFromEntity(cache.ped)
             TriggerServerEvent('r_whippets:ptfxEvent', netId)
-            Core.Natives.PlayAnim(cache.ped, 'amb@world_human_drinking@coffee@male@base', 'base', -1, 49, 0.0)
+            Core.Natives.playAnimation(cache.ped, 'amb@world_human_drinking@coffee@male@base', 'base', -1, 49, 0.0)
         end
     end
 end
@@ -176,10 +176,10 @@ local function holdGas(flavor, contents)
     bottleFlavor = flavor
     bottleContents = contents
     local prop = Flavors[flavor].bottleProp
-    entities.gasBottle = Core.Natives.CreateProp(prop, GetEntityCoords(cache.ped), GetEntityHeading(cache.ped), true)
+    entities.gasBottle = Core.Natives.createObject(prop, GetEntityCoords(cache.ped), GetEntityHeading(cache.ped), true)
     AttachEntityToEntity(entities.gasBottle, cache.ped, GetPedBoneIndex(cache.ped, 28422), -0.0089, -0.0009, -0.0678, -4.1979, 10.7573, -13.8231, true, true, false, true, 2, true)
-    Core.Natives.PlayAnim(cache.ped, 'amb@world_human_drinking@coffee@male@base', 'base', -1, 49, 0.0)
-    Core.Target.AddGlobalPlayer({
+    Core.Natives.playAnimation(cache.ped, 'amb@world_human_drinking@coffee@male@base', 'base', -1, 49, 0.0)
+    Core.Target.addGlobalPlayerOptions({
         {
             label = _L('share_gas'),
             name = _L('share_gas'),

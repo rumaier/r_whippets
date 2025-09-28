@@ -6,6 +6,7 @@ Language['zh'] = { -- Chinese
     share_gas = '分享汽油',
 
     -- 通知
+    notify_title = '通知',
     insufficient_funds = '您没有足够的钱购买汽油。',
     purchased_gas = '您以 $%s 购买了 %s。',
     empty_bottle = '您丢弃了空瓶子。',
@@ -34,5 +35,5 @@ Language['zh'] = { -- Chinese
     bridge_detected = '^2检测到并加载桥接。^0',
     cheater = '因作弊被踢。',
     update = '请将 %s 更新到 Github 上的最新版本',
-
+    debug_enabled = '^1调试模式已开启！请勿在生产环境运行！^0',
 }
