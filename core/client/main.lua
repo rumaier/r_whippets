@@ -7,7 +7,7 @@ RegisterNetEvent("r_whippets:ptfxEvent", function(netId)
     local distance = #(GetEntityCoords(cache.ped) - GetEntityCoords(entity))
     if not DoesEntityExist(entity) or distance > 50 then return end
     local ptFxCoords = GetPedBoneCoords(entity, 47495, 0.0, 0.0, 0.0)
-    Core.Natives.triggerLoopedParticleFx(ptFxCoords, 'core', 'ent_amb_smoke_gaswork', 0.1, 500)
+    Core.Natives.triggerParticleFx(ptFxCoords, 'core', 'ent_amb_smoke_gaswork', 0.1, 500)
 end)
 
 lib.callback.register('r_whippets:openGasBox', function(flavor)
