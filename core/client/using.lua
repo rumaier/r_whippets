@@ -3,31 +3,32 @@ local bottleFlavor = nil
 local bottleContents = nil
 local effectStrength = 0
 
--- SHARING WHIPPETS
-
 local function takeGas(flavor, contents)
     local duration = GetAnimDuration('mp_common', 'givetake1_a') * 1000
-    Core.Natives.playAnimation(cache.ped, 'mp_common', 'givetake1_a', duration, 16, 0.0)
+    bridge.natives.playAnimation(cache.ped, 'mp_common', 'givetake1_a', duration, 16, 0.0)
     SetTimeout(duration * 0.5, function()
         TriggerEvent('r_whippets:holdGas', flavor, contents)
-        _debug('[DEBUG] - took gas')
+        log('debug', 'took gas')
     end)
 end
 
 local function handoverGas()
     local duration = GetAnimDuration('mp_common', 'givetake1_a') * 1000
     local shared = lib.callback.await('r_whippets:shareGasWithNearestPlayer', false, bottleFlavor, bottleContents)
-    if not shared then _debug('[DEBUG] - sharing failed') return end
+    if not shared then
+        log('debug', 'sharing failed')
+        return
+    end
     StopAnimTask(cache.ped, 'amb@world_human_drinking@coffee@male@base', 'base', 1.0)
-    Core.Natives.playAnimation(cache.ped, 'mp_common', 'givetake1_a', duration, 16, 0.0)
+    bridge.natives.playAnimation(cache.ped, 'mp_common', 'givetake1_a', duration, 16, 0.0)
     SetTimeout(duration * 0.5, function()
-        Core.Target.removeGlobalPlayerOptions(_L('share_gas'))
+        bridge.target.removeGlobalPlayerOption(locale('share_gas'))
         DeleteEntity(entities.gasBottle)
         HideControlsUi()
         bottleFlavor = nil
         bottleContents = nil
         entities.gasBottle = nil
-        _debug('[DEBUG] - shared gas')
+        log('debug', 'shared gas')
     end)
 end
 
@@ -35,11 +36,9 @@ RegisterNetEvent('r_whippets:takeGas', function(flavor, contents)
     takeGas(flavor, contents)
 end)
 
--- USE WHIPPETS
-
 local function storeGas()
     local netId = NetworkGetNetworkIdFromEntity(entities.gasBottle)
-    Core.Natives.playAnimation(cache.ped, 'melee@holster', 'holster', 1000, 49, 0.0)
+    bridge.natives.playAnimation(cache.ped, 'melee@holster', 'holster', 1000, 49, 0.0)
     local stored = lib.callback.await('r_whippets:storeGas', false, bottleFlavor, bottleContents, netId)
     if stored then
         HideControlsUi()
@@ -48,7 +47,7 @@ local function storeGas()
             bottleFlavor = nil
             bottleContents = nil
             entities.gasBottle = nil
-            _debug('[DEBUG] - stored gas')
+            log('debug', 'stored gas')
         end)
     end
 end
@@ -69,13 +68,13 @@ local function passout()
     AttachEntityToEntity(entities.gasBottle, cache.ped, GetPedBoneIndex(cache.ped, 28422), 0.0617, 0.0136, -0.0500, -52.8818, -13.3495, -13.1849, true, true, false, true, 2, true)
     SetPedToRagdoll(cache.ped, 5000, 5000, 0, 0, 0, 0)
     DoScreenFadeOut(750)
-    Core.Interface.notify(_L('notify_title'), _L('passout'), 'info')
+    bridge.interface.notify(locale('notify_title'), locale('passout'), 'info')
     SetTimeout(5000, function()
         DoScreenFadeIn(500)
         Wait(1000)
         if bottleContents and bottleContents > 0 then
             AttachEntityToEntity(entities.gasBottle, cache.ped, GetPedBoneIndex(cache.ped, 28422), -0.0089, -0.0009, -0.0678, -4.1979, 10.7573, -13.8231, true, true, false, true, 2, true)
-            Core.Natives.playAnimation(cache.ped, 'amb@world_human_drinking@coffee@male@base', 'base', -1, 49, 0.0)
+            bridge.natives.playAnimation(cache.ped, 'amb@world_human_drinking@coffee@male@base', 'base', -1, 49, 0.0)
             ShowControlsUi(bottleContents)
         end
     end)
@@ -94,7 +93,7 @@ local function decreaseEffectStrength()
         SetTimecycleModifier('default')
         effectStrength = 0
     end
-    _debug('[DEBUG] - decreased effect strength')
+    log('debug', 'decreased effect strength')
 end
 
 local function increaseEffectStrength(duration)
@@ -112,7 +111,7 @@ local function increaseEffectStrength(duration)
     SetTimeout((duration * 5) * 1000, function()
         decreaseEffectStrength()
     end)
-    _debug('[DEBUG] - increased effect strength')
+    log('debug', 'increased effect strength')
 end
 
 local function useGas()
@@ -121,7 +120,7 @@ local function useGas()
     UpdateUiProgressBar(bottleContents)
     if lib.progressCircle({
             duration = duration * 600,
-            label = _L('using_gas'),
+            label = locale('using_gas'),
             position = 'bottom',
             useWhileDead = false,
             canCancel = false,
@@ -134,20 +133,20 @@ local function useGas()
                 clip = 'idle_a',
             },
         }) then
-        _debug('[DEBUG] - used gas')
+        log('debug', 'used gas')
         increaseEffectStrength(duration)
         if bottleContents <= 0 then
             Wait(1000)
             bottleFlavor = nil
             bottleContents = nil
-            Core.Interface.notify(_L('notify_title'), _L('empty_bottle'), 'info')
+            bridge.interface.notify(locale('notify_title'), locale('empty_bottle'), 'info')
             DeleteEntity(entities.gasBottle)
             StopAnimTask(cache.ped, 'amb@world_human_drinking@coffee@male@base', 'base', 1.0)
             HideControlsUi()
         else
             local netId = NetworkGetNetworkIdFromEntity(cache.ped)
             TriggerServerEvent('r_whippets:ptfxEvent', netId)
-            Core.Natives.playAnimation(cache.ped, 'amb@world_human_drinking@coffee@male@base', 'base', -1, 49, 0.0)
+            bridge.natives.playAnimation(cache.ped, 'amb@world_human_drinking@coffee@male@base', 'base', -1, 49, 0.0)
         end
     end
 end
@@ -176,13 +175,13 @@ local function holdGas(flavor, contents)
     bottleFlavor = flavor
     bottleContents = contents
     local prop = Flavors[flavor].bottleProp
-    entities.gasBottle = Core.Natives.createObject(prop, GetEntityCoords(cache.ped), GetEntityHeading(cache.ped), true)
+    entities.gasBottle = bridge.natives.createObject(prop, GetEntityCoords(cache.ped), GetEntityHeading(cache.ped), true)
     AttachEntityToEntity(entities.gasBottle, cache.ped, GetPedBoneIndex(cache.ped, 28422), -0.0089, -0.0009, -0.0678, -4.1979, 10.7573, -13.8231, true, true, false, true, 2, true)
-    Core.Natives.playAnimation(cache.ped, 'amb@world_human_drinking@coffee@male@base', 'base', -1, 49, 0.0)
-    Core.Target.addGlobalPlayerOptions({
+    bridge.natives.playAnimation(cache.ped, 'amb@world_human_drinking@coffee@male@base', 'base', -1, 49, 0.0)
+    bridge.target.addGlobalPlayerOptions({
         {
-            label = _L('share_gas'),
-            name = _L('share_gas'),
+            label = locale('share_gas'),
+            name = locale('share_gas'),
             icon = 'fas fa-user-astronaut',
             distance = 1.0,
             canInteract = function()
@@ -195,7 +194,7 @@ local function holdGas(flavor, contents)
     })
     ShowControlsUi(contents)
     startListeningForInput()
-    _debug('[DEBUG] - pulled out gas')
+    log('debug', 'pulled out gas')
 end
 
 RegisterNetEvent('r_whippets:holdGas', function(flavor, contents)

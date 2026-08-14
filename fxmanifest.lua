@@ -6,23 +6,22 @@ lua54 'yes'
 name 'r_whippets'
 description 'Whippets script for FiveM'
 author 'r_scripts'
-version '1.1.1'
+version '1.2.0'
 
 shared_scripts {
     '@ox_lib/init.lua',
-    'utils/shared.lua',
-    'core/shared/*.lua',
+    '@r_bridge/init.lua',
+    'core/shared/_util.lua',
+    'core/shared/flavors.lua',
     'locales/*.lua',
-    'configs/*.lua'
 }
 
 server_scripts {
-    'utils/server.lua',
+    'config.lua',
     'core/server/*.lua',
 }
 
 client_scripts {
-    'utils/client.lua',
     'core/client/*.lua',
 }
 
@@ -31,7 +30,7 @@ ui_page 'nui/index.html'
 files {
     'nui/index.html',
     'nui/styles.css',
-    'nui/script.js'
+    'nui/script.js',
 }
 
 data_file 'DLC_ITYP_REQUEST' 'stream/vello_solargas.ytyp'
@@ -44,5 +43,5 @@ dependencies {
 escrow_ignore {
     'install/**/*.*',
     'locales/*.*',
-    'config.*' 
+    'config.lua',
 }
