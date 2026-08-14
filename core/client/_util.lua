@@ -6,7 +6,6 @@ local initialized = false
 local function onClientReady()
     if initialized then return end
     if not Cfg.Language then return end
-    if not bridge.framework.isPlayerLoaded() then return end
     initialized = true
     if Cfg.Options.WhippetShop.Enabled then
         SetupWhippetShop()
