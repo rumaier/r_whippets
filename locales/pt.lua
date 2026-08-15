@@ -35,5 +35,9 @@ Language['pt'] = { -- Portuguese
     bridge_detected = '^2Bridge detectada e carregada.^0',
     cheater = 'Expulso por trapaça.',
     update = 'Por favor, atualize %s para a versão mais recente no Github',
-    debug_enabled = '^1Modo debug ATIVADO! Não execute isso em produção!^0',
+    debug_enabled = 'Modo debug ATIVADO! Não execute isso em produção!',
+
+    -- Bridge / boilerplate
+    bridge_loaded = 'Bridge loaded successfully.',
+    update_bridge = 'Please update r_bridge to v3.0.0 or higher!',
 }

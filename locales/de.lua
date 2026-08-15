@@ -35,5 +35,9 @@ Language['de'] = { -- German
     bridge_detected = '^2Bridge erkannt und geladen.^0',
     cheater = 'Wegen Betrugs gekickt.',
     update = 'Bitte aktualisiere %s auf die neueste Version von Github',
-    debug_enabled = '^1Debug-Modus ist AKTIVIERT! Nicht in der Produktion ausführen!^0',
+    debug_enabled = 'Debug-Modus ist AKTIVIERT! Nicht in der Produktion ausführen!',
+
+    -- Bridge / boilerplate
+    bridge_loaded = 'Bridge loaded successfully.',
+    update_bridge = 'Please update r_bridge to v3.0.0 or higher!',
 }

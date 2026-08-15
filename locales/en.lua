@@ -34,5 +34,9 @@ Language['en'] = { -- English
     no_bridge = '^1Bridge not detected, please ensure it is running.^0',
     bridge_detected = '^2Bridge detected and loaded.^0',
     cheater = 'Kicked for cheating.',
-    debug_enabled = '^1Debug mode is ON! Do NOT run this in production!^0',
+    debug_enabled = 'Debug mode is ON! Do NOT run this in production!',
+
+    -- Bridge / boilerplate
+    bridge_loaded = 'Bridge loaded successfully.',
+    update_bridge = 'Please update r_bridge to v3.0.0 or higher!',
 }
